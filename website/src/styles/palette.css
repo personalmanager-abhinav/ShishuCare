@@ -1,0 +1,499 @@
+/* Original green values remain as fallbacks in the base styles.
+   Set data/site.json theme to green-original to restore them.
+   Token suffixes identify the exact saved original color. */
+:root[data-theme='warm-blush'] {
+  --palette-18271c22: #27181a22;
+  --palette-193a3440: #33202340;
+  --palette-1c332a65: #311e2165;
+  --palette-202825: #2d1b1e;
+  --palette-203b3023: #38232623;
+  --palette-233b32: #3a2427;
+  --palette-243f39: #3d262a;
+  --palette-243f3903: #3d262a03;
+  --palette-243f3905: #3d262a05;
+  --palette-243f3907: #3d262a07;
+  --palette-243f390c: #3d262a0c;
+  --palette-243f3910: #3d262a10;
+  --palette-263e3110: #3e262a10;
+  --palette-284b391b: #472c301b;
+  --palette-294d43: #492d32;
+  --palette-294d430b: #492d320b;
+  --palette-294d4320: #492d3220;
+  --palette-324f3a04: #50313604;
+  --palette-345a42: #58363c;
+  --palette-36554c: #56353a;
+  --palette-365e50: #5c383e;
+  --palette-52846e: #85515a;
+  --palette-536056: #6f444b;
+  --palette-53665b: #73464e;
+  --palette-547252: #7a4a52;
+  --palette-556c5d: #784951;
+  --palette-56624e: #6d434a;
+  --palette-61816d: #88535c;
+  --palette-638839: #784951;
+  --palette-648c73: #88535c;
+  --palette-668e40: #804e57;
+  --palette-67746e: #88535c;
+  --palette-68716a: #87525b;
+  --palette-68766d: #88535c;
+  --palette-688d78: #88535c;
+  --palette-6b7a70: #88535c;
+  --palette-6d927b: #88535c;
+  --palette-75967d: #88535c;
+  --palette-79927f: #88535c;
+  --palette-7a897e: #88535c;
+  --palette-7a897f: #88535c;
+  --palette-7c8c7f: #88535c;
+  --palette-85958a: #88535c;
+  --palette-88958c: #88535c;
+  --palette-99b29e: #88535c;
+  --palette-a7b2a8: #88535c;
+  --palette-a9c0ab: #cb9ea6;
+  --palette-b8c3b7: #d1a9b0;
+  --palette-bbc6b8: #d2acb2;
+  --palette-cedbcd: #e1c7cb;
+  --palette-ceddcb: #e1c7cb;
+  --palette-d4dfd0: #e3ccd0;
+  --palette-dde2dc: #e9d5d9;
+  --palette-dde6dc: #ead8db;
+  --palette-e0e8db: #ead9dc;
+  --palette-e1e6dc: #ead8db;
+  --palette-e1e8dc: #ebd9dc;
+  --palette-e1f29b: #d7b6bb;
+  --palette-e2ebde: #ecdddf;
+  --palette-e3eddd: #eddde0;
+  --palette-e4eae5: #f3dbdf;
+  --palette-e4ebe1: #f2d9de;
+  --palette-e4eee1: #f3dce0;
+  --palette-e5eadf: #ecdddf;
+  --palette-e5eee55e: #f4dfe25e;
+  --palette-e7e9e5: #f3dbdf;
+  --palette-e7eee3: #f4dde1;
+  --palette-e8ede5: #f4dee2;
+  --palette-e8eee4: #f4dee2;
+  --palette-e8efdf: #f3dbdf;
+  --palette-e9eee4: #f4dee2;
+  --palette-eaf0df: #f3dce0;
+  --palette-eaf1e4: #f5e0e4;
+  --palette-eaf1e5: #f5e1e4;
+  --palette-eaf1e8: #f6e3e6;
+  --palette-edf0e9: #f6e3e6;
+  --palette-edf1e6: #f5e2e5;
+  --palette-edf2e9: #f6e5e8;
+  --palette-edf2ec: #f7e7ea;
+  --palette-edf3e7: #f6e4e7;
+  --palette-eef1e9: #f6e4e7;
+  --palette-eef4ed: #f8e9ec;
+  --palette-f0f2ee: #f8e8eb;
+  --palette-f1f5ef: #f8ebee;
+  --palette-f1f6ec: #f8eaec;
+  --palette-f4f7f1: #faf3ee;
+  --palette-f5f7f2: #faf3ef;
+  --palette-f6faf3e8: #fbf5f2e8;
+  --palette-f7f9f6: #fbf6f4;
+  --palette-fafbf9: #fcf9f7;
+}
+
+/* Baby pink: airy surfaces and neutral readable ink; earlier palettes stay selectable. */
+:root[data-theme='baby-pink'] {
+  --palette-18271c22: #51474d22;
+  --palette-193a3440: #51474d40;
+  --palette-1c332a65: #51474d65;
+  --palette-202825: #51474d;
+  --palette-203b3023: #51474d23;
+  --palette-233b32: #51474d;
+  --palette-243f39: #51474d;
+  --palette-243f3903: #51474d03;
+  --palette-243f3905: #51474d05;
+  --palette-243f3907: #51474d07;
+  --palette-243f390c: #51474d0c;
+  --palette-243f3910: #51474d10;
+  --palette-263e3110: #51474d10;
+  --palette-284b391b: #51474d1b;
+  --palette-294d43: #51474d;
+  --palette-294d430b: #51474d0b;
+  --palette-294d4320: #51474d20;
+  --palette-324f3a04: #51474d04;
+  --palette-345a42: #51474d;
+  --palette-36554c: #51474d;
+  --palette-365e50: #51474d;
+  --palette-52846e: #75656f;
+  --palette-536056: #75656f;
+  --palette-53665b: #75656f;
+  --palette-547252: #75656f;
+  --palette-556c5d: #75656f;
+  --palette-56624e: #75656f;
+  --palette-61816d: #75656f;
+  --palette-638839: #75656f;
+  --palette-648c73: #75656f;
+  --palette-668e40: #75656f;
+  --palette-67746e: #75656f;
+  --palette-68716a: #75656f;
+  --palette-68766d: #75656f;
+  --palette-688d78: #75656f;
+  --palette-6b7a70: #75656f;
+  --palette-6d927b: #75656f;
+  --palette-75967d: #75656f;
+  --palette-79927f: #75656f;
+  --palette-7a897e: #75656f;
+  --palette-7a897f: #75656f;
+  --palette-7c8c7f: #75656f;
+  --palette-85958a: #75656f;
+  --palette-88958c: #75656f;
+  --palette-99b29e: #75656f;
+  --palette-a7b2a8: #75656f;
+  --palette-a9c0ab: #e8cdd9;
+  --palette-b8c3b7: #e8cdd9;
+  --palette-bbc6b8: #e8cdd9;
+  --palette-cedbcd: #e8cdd9;
+  --palette-ceddcb: #e8cdd9;
+  --palette-d4dfd0: #e8cdd9;
+  --palette-dde2dc: #f5d1e0;
+  --palette-dde6dc: #f6d4e2;
+  --palette-e0e8db: #f6d5e3;
+  --palette-e1e6dc: #f6d4e2;
+  --palette-e1e8dc: #f6d5e3;
+  --palette-e1f29b: #e8cdd9;
+  --palette-e2ebde: #f7dae6;
+  --palette-e3eddd: #f7dae6;
+  --palette-e4eae5: #f8dee9;
+  --palette-e4ebe1: #f7dbe7;
+  --palette-e4eee1: #f8dfe9;
+  --palette-e5eadf: #f7dae6;
+  --palette-e5eee55e: #f9e2eb5e;
+  --palette-e7e9e5: #f8dee9;
+  --palette-e7eee3: #f8e0ea;
+  --palette-e8ede5: #f9e1eb;
+  --palette-e8eee4: #f9e1eb;
+  --palette-e8efdf: #f8dee9;
+  --palette-e9eee4: #f9e1eb;
+  --palette-eaf0df: #f8dfe9;
+  --palette-eaf1e4: #f9e3ed;
+  --palette-eaf1e5: #f9e4ed;
+  --palette-eaf1e8: #fae7ef;
+  --palette-edf0e9: #fae7ef;
+  --palette-edf1e6: #fae5ee;
+  --palette-edf2e9: #fae8f0;
+  --palette-edf2ec: #fbebf2;
+  --palette-edf3e7: #fae8ef;
+  --palette-eef1e9: #fae8ef;
+  --palette-eef4ed: #fbedf3;
+  --palette-f0f2ee: #fbedf3;
+  --palette-f1f5ef: #fceff4;
+  --palette-f1f6ec: #fbeef4;
+  --palette-f4f7f1: #fcf3f7;
+  --palette-f5f7f2: #fdf4f8;
+  --palette-f6faf3e8: #fdf7fae8;
+  --palette-f7f9f6: #fef9fb;
+  --palette-fafbf9: #fef9fb;
+}
+
+:root[data-theme='baby-pink'] .promotion-bar {
+  background: #f8dce8;
+  color: #65505c;
+}
+:root[data-theme='baby-pink'] .coupon-code {
+  border-bottom-color: #b28a9e;
+}
+:root[data-theme='baby-pink'] .button {
+  background: #f4cedf;
+  color: #57434e;
+  border-color: #edc1d5;
+}
+:root[data-theme='baby-pink'] .button:hover {
+  background: #efbfd5;
+}
+:root[data-theme='baby-pink'] .button.secondary {
+  background: #fff7fa;
+}
+:root[data-theme='baby-pink'] h1 em {
+  color: #a56d88;
+}
+:root[data-theme='baby-pink'] .brand-symbol,
+:root[data-theme='baby-pink'] .eyebrow-spark {
+  color: #c48da7;
+}
+
+/* Butter yellow and ivory. Earlier palettes stay available. */
+:root[data-theme='butter-yellow'] {
+  --palette-18271c22: #514c3e22;
+  --palette-193a3440: #514c3e40;
+  --palette-1c332a65: #514c3e65;
+  --palette-202825: #514c3e;
+  --palette-203b3023: #514c3e23;
+  --palette-233b32: #514c3e;
+  --palette-243f39: #514c3e;
+  --palette-243f3903: #514c3e03;
+  --palette-243f3905: #514c3e05;
+  --palette-243f3907: #514c3e07;
+  --palette-243f390c: #514c3e0c;
+  --palette-243f3910: #514c3e10;
+  --palette-263e3110: #514c3e10;
+  --palette-284b391b: #514c3e1b;
+  --palette-294d43: #514c3e;
+  --palette-294d430b: #514c3e0b;
+  --palette-294d4320: #514c3e20;
+  --palette-324f3a04: #514c3e04;
+  --palette-345a42: #514c3e;
+  --palette-36554c: #514c3e;
+  --palette-365e50: #514c3e;
+  --palette-52846e: #746b53;
+  --palette-536056: #746b53;
+  --palette-53665b: #746b53;
+  --palette-547252: #746b53;
+  --palette-556c5d: #746b53;
+  --palette-56624e: #746b53;
+  --palette-61816d: #746b53;
+  --palette-638839: #746b53;
+  --palette-648c73: #746b53;
+  --palette-668e40: #746b53;
+  --palette-67746e: #746b53;
+  --palette-68716a: #746b53;
+  --palette-68766d: #746b53;
+  --palette-688d78: #746b53;
+  --palette-6b7a70: #746b53;
+  --palette-6d927b: #746b53;
+  --palette-75967d: #746b53;
+  --palette-79927f: #746b53;
+  --palette-7a897e: #746b53;
+  --palette-7a897f: #746b53;
+  --palette-7c8c7f: #746b53;
+  --palette-85958a: #746b53;
+  --palette-88958c: #746b53;
+  --palette-99b29e: #746b53;
+  --palette-a7b2a8: #746b53;
+  --palette-a9c0ab: #f4e7c1;
+  --palette-b8c3b7: #f4e7c1;
+  --palette-bbc6b8: #f4e7c1;
+  --palette-cedbcd: #f4e7c1;
+  --palette-ceddcb: #f4e7c1;
+  --palette-d4dfd0: #f4e7c1;
+  --palette-dde2dc: #f7edcf;
+  --palette-dde6dc: #f7eed3;
+  --palette-e0e8db: #f7eed4;
+  --palette-e1e6dc: #f7eed3;
+  --palette-e1e8dc: #f7eed4;
+  --palette-e1f29b: #f4e7c1;
+  --palette-e2ebde: #f8f0d9;
+  --palette-e3eddd: #f8f0d9;
+  --palette-e4eae5: #f9f2dd;
+  --palette-e4ebe1: #f8f1da;
+  --palette-e4eee1: #f9f2de;
+  --palette-e5eadf: #f8f0d9;
+  --palette-e5eee55e: #faf4e15e;
+  --palette-e7e9e5: #f9f2dd;
+  --palette-e7eee3: #f9f3df;
+  --palette-e8ede5: #faf3e0;
+  --palette-e8eee4: #faf3e0;
+  --palette-e8efdf: #f9f2dd;
+  --palette-e9eee4: #faf3e0;
+  --palette-eaf0df: #f9f2de;
+  --palette-eaf1e4: #faf4e2;
+  --palette-eaf1e5: #faf4e3;
+  --palette-eaf1e8: #fbf6e6;
+  --palette-edf0e9: #fbf6e6;
+  --palette-edf1e6: #faf5e5;
+  --palette-edf2e9: #fbf6e7;
+  --palette-edf2ec: #fbf7eb;
+  --palette-edf3e7: #fbf6e7;
+  --palette-eef1e9: #fbf6e7;
+  --palette-eef4ed: #fcf8ec;
+  --palette-f0f2ee: #fcf8ec;
+  --palette-f1f5ef: #fcf9ef;
+  --palette-f1f6ec: #fcf8ed;
+  --palette-f4f7f1: #fdfaf2;
+  --palette-f5f7f2: #fdfbf4;
+  --palette-f6faf3e8: #fefcf7e8;
+  --palette-f7f9f6: #fefdf9;
+  --palette-fafbf9: #fefdf9;
+}
+
+:root[data-theme='butter-yellow'] .promotion-bar {
+  background: #f9f1db;
+  color: #514c3e;
+}
+:root[data-theme='butter-yellow'] .coupon-code {
+  border-bottom-color: #927127;
+}
+:root[data-theme='butter-yellow'] .button {
+  background: #f6eccc;
+  color: #514c3e;
+  border-color: #f3e5bb;
+}
+:root[data-theme='butter-yellow'] .button:hover {
+  background: #f3e5bb;
+}
+:root[data-theme='butter-yellow'] .button.secondary {
+  background: #fefcf8;
+}
+:root[data-theme='butter-yellow'] h1 em {
+  color: #746b53;
+}
+:root[data-theme='butter-yellow'] .brand-symbol,
+:root[data-theme='butter-yellow'] .eyebrow-spark {
+  color: #927127;
+}
+
+:root[data-theme='butter-yellow'] .promotion-bar {
+  background: #f3e1a0;
+  color: #63552d;
+}
+:root[data-theme='butter-yellow'] .button {
+  background: #efd994;
+  border-color: #e3ca80;
+  color: #554a2f;
+}
+:root[data-theme='butter-yellow'] .button:hover {
+  background: #e7cb7d;
+}
+:root[data-theme='butter-yellow'] .button.secondary {
+  background: #fffaf0;
+}
+:root[data-theme='butter-yellow'] .choice-options {
+  background: #fffdf5f5;
+  box-shadow: 0 14px 35px #65552c16;
+}
+:root[data-theme='butter-yellow'] .choice-options button:is(:hover, :focus-visible),
+:root[data-theme='butter-yellow'] .choice-options button[aria-selected='true'] {
+  background: #fbefc9;
+}
+:root[data-theme='butter-yellow'] .save-product {
+  background: #fffdf5ee;
+}
+:root[data-theme='butter-yellow'] .save-product:hover {
+  background: #f8edc6;
+}
+:root[data-theme='butter-yellow'] .save-product[aria-pressed='true'] {
+  color: #a74640;
+  background: #fff0eb;
+}
+:root[data-theme='butter-yellow'] .review-avatar {
+  background: #f9edc7;
+  color: #806934;
+}
+:root[data-theme='butter-yellow'] .mannpasand-link:hover {
+  color: #a74640;
+}
+
+/* Small terracotta-red accents complement the butter-yellow theme. */
+:root[data-theme='butter-yellow'] {
+  --heart-accent: #a74640;
+}
+:root[data-theme='butter-yellow'] .coupon-code,
+:root[data-theme='butter-yellow'] .hero-tagline .eyebrow-spark {
+  color: #a74640;
+  border-bottom-color: #a74640;
+}
+
+
+/* Theme option: powder-sky */
+:root[data-theme='powder-sky'] {
+  --palette-18271c22: #333f4b22;
+  --palette-193a3440: #333f4b40;
+  --palette-1c332a65: #333f4b65;
+  --palette-202825: #333f4b;
+  --palette-203b3023: #333f4b23;
+  --palette-233b32: #333f4b;
+  --palette-243f39: #333f4b;
+  --palette-243f3903: #333f4b03;
+  --palette-243f3905: #333f4b05;
+  --palette-243f3907: #333f4b07;
+  --palette-243f390c: #333f4b0c;
+  --palette-243f3910: #333f4b10;
+  --palette-263e3110: #333f4b10;
+  --palette-284b391b: #333f4b1b;
+  --palette-294d43: #333f4b;
+  --palette-294d430b: #333f4b0b;
+  --palette-294d4320: #333f4b20;
+  --palette-324f3a04: #333f4b04;
+  --palette-345a42: #333f4b;
+  --palette-36554c: #333f4b;
+  --palette-365e50: #333f4b;
+  --palette-52846e: #6c7a86;
+  --palette-536056: #6c7a86;
+  --palette-53665b: #6c7a86;
+  --palette-547252: #6c7a86;
+  --palette-556c5d: #6c7a86;
+  --palette-56624e: #6c7a86;
+  --palette-61816d: #6c7a86;
+  --palette-638839: #6c7a86;
+  --palette-648c73: #6c7a86;
+  --palette-668e40: #6c7a86;
+  --palette-67746e: #6c7a86;
+  --palette-68716a: #6c7a86;
+  --palette-68766d: #6c7a86;
+  --palette-688d78: #6c7a86;
+  --palette-6b7a70: #6c7a86;
+  --palette-6d927b: #6c7a86;
+  --palette-75967d: #6c7a86;
+  --palette-79927f: #6c7a86;
+  --palette-7a897e: #6c7a86;
+  --palette-7a897f: #6c7a86;
+  --palette-7c8c7f: #6c7a86;
+  --palette-85958a: #6c7a86;
+  --palette-88958c: #6c7a86;
+  --palette-99b29e: #6c7a86;
+  --palette-a7b2a8: #6c7a86;
+  --palette-a9c0ab: #dce9f3;
+  --palette-b8c3b7: #dce9f3;
+  --palette-bbc6b8: #dce9f3;
+  --palette-cedbcd: #dce9f3;
+  --palette-ceddcb: #dce9f3;
+  --palette-d4dfd0: #dce9f3;
+  --palette-dde2dc: #e4eef6;
+  --palette-dde6dc: #e6eff6;
+  --palette-e0e8db: #e6eff7;
+  --palette-e1e6dc: #e6eff6;
+  --palette-e1e8dc: #e6eff7;
+  --palette-e1f29b: #dce9f3;
+  --palette-e2ebde: #e9f1f8;
+  --palette-e3eddd: #e9f1f8;
+  --palette-e4eae5: #ecf3f8;
+  --palette-e4ebe1: #eaf2f8;
+  --palette-e4eee1: #ecf3f9;
+  --palette-e5eadf: #e9f1f8;
+  --palette-e5eee55e: #eef5f95e;
+  --palette-e7e9e5: #ecf3f8;
+  --palette-e7eee3: #edf4f9;
+  --palette-e8ede5: #edf4f9;
+  --palette-e8eee4: #edf4f9;
+  --palette-e8efdf: #ecf3f8;
+  --palette-e9eee4: #edf4f9;
+  --palette-eaf0df: #ecf3f9;
+  --palette-eaf1e4: #eef5fa;
+  --palette-eaf1e5: #eff5fa;
+  --palette-eaf1e8: #f1f7fa;
+  --palette-edf0e9: #f1f7fa;
+  --palette-edf1e6: #f0f6fa;
+  --palette-edf2e9: #f1f7fb;
+  --palette-edf2ec: #f3f8fb;
+  --palette-edf3e7: #f1f7fb;
+  --palette-eef1e9: #f1f7fb;
+  --palette-eef4ed: #f4f8fc;
+  --palette-f0f2ee: #f4f8fc;
+  --palette-f1f5ef: #f5f9fc;
+  --palette-f1f6ec: #f4f9fc;
+  --palette-f4f7f1: #f7fafd;
+  --palette-f5f7f2: #f8fbfd;
+  --palette-f6faf3e8: #fafcfee8;
+  --palette-f7f9f6: #fbfdfe;
+  --palette-fafbf9: #fbfdfe;
+  --heart-accent: #cf5f4f;
+}
+:root[data-theme='powder-sky'] .promotion-bar { background: #dcebf6; color: #3a4650; }
+:root[data-theme='powder-sky'] .coupon-code,
+:root[data-theme='powder-sky'] .hero-tagline .eyebrow-spark { color: #cf7a5c; border-bottom-color: #cf7a5c; }
+:root[data-theme='powder-sky'] .button { background: #d3e6f4; color: #333f4b; border-color: #bfdaee; }
+:root[data-theme='powder-sky'] .button:hover { background: #c2ddef; }
+:root[data-theme='powder-sky'] .button.secondary { background: #fbfdff; }
+:root[data-theme='powder-sky'] h1 em { color: #4d7fa6; }
+:root[data-theme='powder-sky'] .brand-symbol,
+:root[data-theme='powder-sky'] .eyebrow-spark { color: #4d7fa6; }
+:root[data-theme='powder-sky'] .choice-options { background: #f6fbfff5; box-shadow: 0 14px 35px #33333314; }
+:root[data-theme='powder-sky'] .choice-options button:is(:hover, :focus-visible),
+:root[data-theme='powder-sky'] .choice-options button[aria-selected='true'] { background: #e6f2fb; }
+:root[data-theme='powder-sky'] .save-product { background: #f7fbffee; }
+:root[data-theme='powder-sky'] .save-product:hover { background: #e6f2fb; }
+:root[data-theme='powder-sky'] .save-product[aria-pressed='true'] { color: #cf5f4f; background: #fdeee9; }
+:root[data-theme='powder-sky'] .review-avatar { background: #e3f0fa; color: #4d7fa6; }
+:root[data-theme='powder-sky'] .mannpasand-link:hover { color: #cf5f4f; }

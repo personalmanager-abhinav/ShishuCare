@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Catalogue from '../../components/Catalogue.astro';
+import taxonomy from '../../../data/taxonomy.json';
+import site from '../../../data/site.json';
+export function getStaticPaths() {
+  return taxonomy.map((category) => ({ params: { category: category.id }, props: { category } }));
+}
+const { category } = Astro.props;
+---
+
+<Layout title={`${category.name} — ${site.name}`}>
+  <section class="intro">
+    <div>
+      <p class="eyebrow">THE COLLECTION</p>
+      <h1>{category.name}</h1>
+    </div>
+    <div class="intro-note">
+      <a href="/#collection">Browse every category ↗</a>
+    </div>
+  </section>
+  <Catalogue initialCategory={category.id} />
+</Layout>

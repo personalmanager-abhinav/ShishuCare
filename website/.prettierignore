@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+.wrangler
+work
+pnpm-lock.yaml
+data/embeddings.json
+src/generated

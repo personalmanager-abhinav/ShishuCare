@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "product_id": "P001",
+  "slug": "everyday-cotton-shirt",
+  "name": "Everyday cotton shirt",
+  "description": "A black cotton shirt for casual use. This is sample content for exploring the catalogue; replace it with your own product description and photography.",
+  "category_id": "clothing",
+  "status": "archived",
+  "demo": true,
+  "images": [
+    {
+      "src": "/images/P001.svg",
+      "alt": "Sample image placeholder for Everyday cotton shirt"
+    },
+    {
+      "src": "/images/P001-detail.svg",
+      "alt": "Sample placeholder for a detail photograph of the cotton shirt"
+    },
+    {
+      "src": "/images/P001-back.svg",
+      "alt": "Sample placeholder for a back photograph of the cotton shirt"
+    }
+  ],
+  "attributes": {
+    "color": [
+      "black"
+    ],
+    "material": [
+      "cotton"
+    ],
+    "occasion": [
+      "casual"
+    ],
+    "season": [
+      "summer"
+    ],
+    "type": [
+      "shirt"
+    ]
+  },
+  "tags": [
+    "shirt",
+    "casual",
+    "summer"
+  ],
+  "offers": [
+    {
+      "offer_id": "P001-meesho",
+      "marketplace_id": "meesho",
+      "url": null,
+      "price_minor": 79900,
+      "currency": "INR",
+      "availability": "unknown",
+      "last_verified_at": null
+    },
+    {
+      "offer_id": "P001-amazon",
+      "marketplace_id": "amazon",
+      "url": null,
+      "price_minor": 79900,
+      "currency": "INR",
+      "availability": "unknown",
+      "last_verified_at": null
+    },
+    {
+      "offer_id": "P001-flipkart",
+      "marketplace_id": "flipkart",
+      "url": null,
+      "price_minor": 79900,
+      "currency": "INR",
+      "availability": "unknown",
+      "last_verified_at": null
+    }
+  ],
+  "created_at": "2026-09-17T00:00:00Z",
+  "updated_at": "2026-09-17T00:00:00Z"
+}

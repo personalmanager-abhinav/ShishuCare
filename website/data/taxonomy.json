@@ -1,0 +1,14 @@
+[
+  {
+    "id": "clothing",
+    "name": "Baby wear"
+  },
+  {
+    "id": "accessories",
+    "name": "Little essentials"
+  },
+  {
+    "id": "home",
+    "name": "Wraps & mats"
+  }
+]

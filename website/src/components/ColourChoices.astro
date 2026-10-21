@@ -1,0 +1,24 @@
+---
+import type { Product } from '../lib/product';
+const { product } = Astro.props as { product: Product };
+const shades: Record<string, string> = { pink: '#edc1d4', blue: '#c5dce8', cream: '#eee1c5' };
+---
+
+<div class="colour-choices" data-colours={product.product_id}>
+  <p>
+    Colour: <span data-colour-label>Pink</span>
+  </p>
+  <div class="swatch-row" role="group" aria-label={`Choose ${product.name} colour`}>
+    {product.attributes.color?.map((colour, index) => (
+      <button
+        type="button"
+        class="colour-swatch"
+        style={`--swatch:${shades[colour] || '#eee'}`}
+        data-colour-index={index}
+        aria-label={colour}
+        aria-pressed={index === 0}
+        title={colour}
+      ></button>
+    ))}
+  </div>
+</div>

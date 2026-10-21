@@ -1,0 +1,7 @@
+# Optional local dashboard access. Copy to .dev.vars and set a long random value.
+# Never use this local token on a public deployment.
+LOCAL_ADMIN_TOKEN=replace-with-a-long-random-local-token
+# Cloudflare API token is used only by the embedding build script, not browser code.
+# Set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN in your shell when generating embeddings.
+# Optional: configure MONITOR_TOKEN as a separate random value of at least 32 characters.
+# It authorizes only /internal/api/health, never owner reports. Set it as a secret in production.

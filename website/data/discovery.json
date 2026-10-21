@@ -1,0 +1,5 @@
+{
+  "enabled": true,
+  "model_version": "discovery-v1",
+  "experiment": { "enabled": false, "id": "discovery-ranking-v1" }
+}

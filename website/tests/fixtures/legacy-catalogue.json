@@ -1,0 +1,565 @@
+{
+  "version": "42dc8622ce6ba715",
+  "products": [
+    {
+      "schema_version": 1,
+      "product_id": "P001",
+      "slug": "everyday-cotton-shirt",
+      "name": "Everyday cotton shirt",
+      "description": "A black cotton shirt for casual use. This is sample content for exploring the catalogue; replace it with your own product description and photography.",
+      "category_id": "clothing",
+      "status": "active",
+      "demo": true,
+      "images": [
+        {
+          "src": "/images/P001.svg",
+          "alt": "Sample image placeholder for Everyday cotton shirt"
+        },
+        {
+          "src": "/images/P001-detail.svg",
+          "alt": "Sample placeholder for a detail photograph of the cotton shirt"
+        },
+        {
+          "src": "/images/P001-back.svg",
+          "alt": "Sample placeholder for a back photograph of the cotton shirt"
+        }
+      ],
+      "attributes": {
+        "color": [
+          "black"
+        ],
+        "material": [
+          "cotton"
+        ],
+        "occasion": [
+          "casual"
+        ],
+        "season": [
+          "summer"
+        ],
+        "type": [
+          "shirt"
+        ]
+      },
+      "tags": [
+        "shirt",
+        "casual",
+        "summer"
+      ],
+      "offers": [
+        {
+          "offer_id": "P001-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 79900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P001-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 79900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P001-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 79900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P002",
+      "slug": "relaxed-linen-shirt",
+      "name": "Relaxed linen shirt",
+      "description": "A white linen shirt for casual use. This is sample content for exploring the catalogue; replace it with your own product description and photography.",
+      "category_id": "clothing",
+      "status": "active",
+      "demo": true,
+      "images": [
+        {
+          "src": "/images/P002.svg",
+          "alt": "Sample image placeholder for Relaxed linen shirt"
+        }
+      ],
+      "attributes": {
+        "color": [
+          "white"
+        ],
+        "material": [
+          "linen"
+        ],
+        "occasion": [
+          "casual"
+        ],
+        "season": [
+          "summer"
+        ],
+        "type": [
+          "shirt"
+        ]
+      },
+      "tags": [
+        "shirt",
+        "casual",
+        "summer"
+      ],
+      "offers": [
+        {
+          "offer_id": "P002-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 119900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P002-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 119900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P002-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 119900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P003",
+      "slug": "classic-cotton-tee",
+      "name": "Classic cotton tee",
+      "description": "A blue cotton t-shirt for everyday use. This is sample content for exploring the catalogue; replace it with your own product description and photography.",
+      "category_id": "clothing",
+      "status": "active",
+      "demo": true,
+      "images": [
+        {
+          "src": "/images/P003.svg",
+          "alt": "Sample image placeholder for Classic cotton tee"
+        }
+      ],
+      "attributes": {
+        "color": [
+          "blue"
+        ],
+        "material": [
+          "cotton"
+        ],
+        "occasion": [
+          "everyday"
+        ],
+        "season": [
+          "summer"
+        ],
+        "type": [
+          "t-shirt"
+        ]
+      },
+      "tags": [
+        "t-shirt",
+        "everyday",
+        "summer"
+      ],
+      "offers": [
+        {
+          "offer_id": "P003-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 49900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P003-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 49900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P003-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 49900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P004",
+      "slug": "the-everyday-tote",
+      "name": "The everyday tote",
+      "description": "A cream canvas bag for everyday use. This is sample content for exploring the catalogue; replace it with your own product description and photography.",
+      "category_id": "accessories",
+      "status": "active",
+      "demo": true,
+      "images": [
+        {
+          "src": "/images/P004.svg",
+          "alt": "Sample image placeholder for The everyday tote"
+        }
+      ],
+      "attributes": {
+        "color": [
+          "cream"
+        ],
+        "material": [
+          "canvas"
+        ],
+        "occasion": [
+          "everyday"
+        ],
+        "season": [
+          "all-season"
+        ],
+        "type": [
+          "bag"
+        ]
+      },
+      "tags": [
+        "bag",
+        "everyday",
+        "all-season"
+      ],
+      "offers": [
+        {
+          "offer_id": "P004-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 59900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P004-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 59900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P004-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 59900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P005",
+      "slug": "weekend-crossbody",
+      "name": "Weekend crossbody",
+      "description": "A black cotton bag for casual use. This is sample content for exploring the catalogue; replace it with your own product description and photography.",
+      "category_id": "accessories",
+      "status": "active",
+      "demo": true,
+      "images": [
+        {
+          "src": "/images/P005.svg",
+          "alt": "Sample image placeholder for Weekend crossbody"
+        }
+      ],
+      "attributes": {
+        "color": [
+          "black"
+        ],
+        "material": [
+          "cotton"
+        ],
+        "occasion": [
+          "casual"
+        ],
+        "season": [
+          "all-season"
+        ],
+        "type": [
+          "bag"
+        ]
+      },
+      "tags": [
+        "bag",
+        "casual",
+        "all-season"
+      ],
+      "offers": [
+        {
+          "offer_id": "P005-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 89900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P005-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 89900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P005-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 89900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P006",
+      "slug": "morning-ceramic-mug",
+      "name": "Morning ceramic mug",
+      "description": "A white ceramic mug for everyday use. This is sample content for exploring the catalogue; replace it with your own product description and photography.",
+      "category_id": "home",
+      "status": "active",
+      "demo": true,
+      "images": [
+        {
+          "src": "/images/P006.svg",
+          "alt": "Sample image placeholder for Morning ceramic mug"
+        }
+      ],
+      "attributes": {
+        "color": [
+          "white"
+        ],
+        "material": [
+          "ceramic"
+        ],
+        "occasion": [
+          "everyday"
+        ],
+        "season": [
+          "all-season"
+        ],
+        "type": [
+          "mug"
+        ]
+      },
+      "tags": [
+        "mug",
+        "everyday",
+        "all-season"
+      ],
+      "offers": [
+        {
+          "offer_id": "P006-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 39900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P006-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 39900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P006-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 39900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P007",
+      "slug": "textured-cushion-cover",
+      "name": "Textured cushion cover",
+      "description": "A blue cotton cushion for everyday use. This is sample content for exploring the catalogue; replace it with your own product description and photography.",
+      "category_id": "home",
+      "status": "active",
+      "demo": true,
+      "images": [
+        {
+          "src": "/images/P007.svg",
+          "alt": "Sample image placeholder for Textured cushion cover"
+        }
+      ],
+      "attributes": {
+        "color": [
+          "blue"
+        ],
+        "material": [
+          "cotton"
+        ],
+        "occasion": [
+          "everyday"
+        ],
+        "season": [
+          "all-season"
+        ],
+        "type": [
+          "cushion"
+        ]
+      },
+      "tags": [
+        "cushion",
+        "everyday",
+        "all-season"
+      ],
+      "offers": [
+        {
+          "offer_id": "P007-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 44900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P007-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 44900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P007-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 44900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P008",
+      "slug": "lightweight-summer-scarf",
+      "name": "Lightweight summer scarf",
+      "description": "A green cotton scarf for casual use. This is sample content for exploring the catalogue; replace it with your own product description and photography.",
+      "category_id": "accessories",
+      "status": "active",
+      "demo": true,
+      "images": [
+        {
+          "src": "/images/P008.svg",
+          "alt": "Sample image placeholder for Lightweight summer scarf"
+        }
+      ],
+      "attributes": {
+        "color": [
+          "green"
+        ],
+        "material": [
+          "cotton"
+        ],
+        "occasion": [
+          "casual"
+        ],
+        "season": [
+          "summer"
+        ],
+        "type": [
+          "scarf"
+        ]
+      },
+      "tags": [
+        "scarf",
+        "casual",
+        "summer"
+      ],
+      "offers": [
+        {
+          "offer_id": "P008-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 34900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P008-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 34900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P008-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 34900,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-17T00:00:00Z",
+      "updated_at": "2026-09-17T00:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+---
+import { gallery } from '../lib/gallery';
+import { imageSources, cardSizes } from '../lib/responsive-image';
+import { money, price, type Product } from '../lib/catalogue';
+import SaveButton from './SaveButton.astro';
+import ColourChoices from './ColourChoices.astro';
+import taxonomy from '../../data/taxonomy.json';
+const { product, hidden = false } = Astro.props as { product: Product; hidden?: boolean };
+---
+
+<article class="product-card" data-product={product.product_id} hidden={hidden}>
+  <SaveButton id={product.product_id} compact />
+  <a
+    href={`/products/${product.slug}/`}
+    data-product-link={product.product_id}
+    data-product-open={product.product_id}
+    aria-haspopup="dialog"
+    class="product-image"
+  >
+    <img
+      src={gallery(product)[0].src}
+      srcset={imageSources(gallery(product)[0].src)}
+      sizes={cardSizes}
+      data-fallback={gallery(product)[0].fallback}
+      alt={gallery(product)[0].alt}
+      width="800"
+      height="960"
+      loading="lazy"
+    />
+    {product.video && (
+      <video
+        class="product-video"
+        data-preview-video
+        data-video-src={product.video.src}
+        muted
+        loop
+        playsinline
+        preload="none"
+        aria-hidden="true"
+        tabindex="-1"
+        poster={gallery(product)[0].src}
+      ></video>
+    )}
+    <span class="image-tag">
+      {gallery(product)[0].illustration ? 'Illustrative preview' : product.attributes.material?.[0]}
+    </span>
+    <span class="quick-view-hint">
+      Take a closer look <span aria-hidden="true">↗</span>
+    </span>
+  </a>
+  <div class="product-meta">
+    <a href={`/categories/${product.category_id}/`}>
+      {taxonomy.find((c) => c.id === product.category_id)?.name}
+    </a>
+    <span>{product.offers.length} marketplaces</span>
+  </div>
+  <a
+    class="product-name"
+    href={`/products/${product.slug}/`}
+    data-product-link={product.product_id}
+    data-product-open={product.product_id}
+    aria-haspopup="dialog"
+  >
+    {product.name}
+  </a>
+  <p class="price">
+    {money(price(product))}
+    <span>{price(product) === null ? 'Price coming soon' : 'listed price'}</span>
+  </p>
+  <div class="card-personal-details">
+    <ColourChoices product={product} />
+    <aside class="parent-note" aria-label="Parent review note">
+      <div class="parent-note-heading">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="none" aria-hidden="true">
+          <path
+            d="M6 4h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-6l-5 3v-3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3Z"
+            stroke="currentColor"
+            stroke-width="1.4"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M8 9h3m2 0h3M8 12h6"
+            stroke="currentColor"
+            stroke-width="1.4"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span>Parent notes</span>
+      </div>
+      {product.parent_note ? (
+        <>
+          <blockquote>{product.parent_note.excerpt}</blockquote>
+          <div class="review-author">
+            <span class="review-avatar" aria-hidden="true">
+              {product.parent_note.attribution[0]}
+            </span>
+            <span>{product.parent_note.attribution}</span>
+          </div>
+        </>
+      ) : (
+        <p>Awaiting our first story</p>
+      )}
+    </aside>
+  </div>
+</article>

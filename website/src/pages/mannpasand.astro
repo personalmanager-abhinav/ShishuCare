@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import catalogue from '../generated/catalogue.json';
+import type { Product } from '../lib/product';
+import AmbientParticles from '../components/AmbientParticles.astro';
+---
+
+<Layout title="Mannpasand — Shishu care">
+  <section class="intro ambient-section">
+    <AmbientParticles variant="mannpasand" />
+    <div>
+      <p class="eyebrow">KEPT CLOSE, BECAUSE IT MATTERED</p>
+      <h1>Mannpasand</h1>
+    </div>
+    <div class="intro-note">
+      <p>A few favourites to come back to. Saved on this browser, with no account needed.</p>
+    </div>
+  </section>
+  <section class="catalogue" data-mannpasand-page>
+    <p id="mannpasand-status" role="status"></p>
+    <div class="product-grid">
+      {catalogue.products.map((product) => (
+        <ProductCard product={product as Product} hidden />
+      ))}
+    </div>
+    <div id="mannpasand-empty" class="empty">
+      <h2>A little room for your favourites.</h2>
+      <p>Tap a heart on a product to keep it here.</p>
+      <a href="/#collection" class="button">
+        Explore the collection
+      </a>
+    </div>
+    <noscript>
+      <p>Enable JavaScript to see favourites saved on this browser.</p>
+    </noscript>
+  </section>
+</Layout>

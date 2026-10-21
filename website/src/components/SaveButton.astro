@@ -1,0 +1,16 @@
+---
+import HeartIcon from './HeartIcon.astro';
+const { id = '', compact = false } = Astro.props;
+---
+
+<button
+  type="button"
+  class:list={['save-product', { compact }]}
+  data-save-product={id}
+  aria-pressed="false"
+  aria-label="Save to Mannpasand"
+  title="Save to Mannpasand"
+>
+  <HeartIcon />
+  <span class="save-label">Mannpasand</span>
+</button>

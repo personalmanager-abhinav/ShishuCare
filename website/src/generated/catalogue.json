@@ -1,0 +1,600 @@
+{
+  "version": "6baa05dacbfd6b07",
+  "products": [
+    {
+      "schema_version": 1,
+      "product_id": "P101",
+      "slug": "caps",
+      "name": "Caps",
+      "description": "Explore caps from Shishu care. These illustrations and suggested colours preview our upcoming collection. Final materials, sizes, colours and prices will be confirmed with the product listings.",
+      "category_id": "accessories",
+      "status": "active",
+      "demo": true,
+      "images": [],
+      "illustration_fallback": true,
+      "colour_variants": [
+        {
+          "colour": "pink",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P101-pink.svg",
+            "alt": "Illustrative pink caps preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "blue",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P101-blue.svg",
+            "alt": "Illustrative blue caps preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "cream",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P101-cream.svg",
+            "alt": "Illustrative cream caps preview; not a product photograph"
+          }
+        }
+      ],
+      "attributes": {
+        "color": [
+          "pink",
+          "blue",
+          "cream"
+        ],
+        "type": [
+          "cap"
+        ]
+      },
+      "tags": [
+        "caps",
+        "cap",
+        "baby",
+        "cap"
+      ],
+      "offers": [
+        {
+          "offer_id": "P101-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 10000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P101-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 10000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P101-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 10000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-18T00:00:00Z",
+      "updated_at": "2026-09-18T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P102",
+      "slug": "baby-shawl",
+      "name": "Baby shawl",
+      "description": "Explore baby shawl from Shishu care. These illustrations and suggested colours preview our upcoming collection. Final materials, sizes, colours and prices will be confirmed with the product listings.",
+      "category_id": "home",
+      "status": "active",
+      "demo": true,
+      "images": [],
+      "illustration_fallback": true,
+      "colour_variants": [
+        {
+          "colour": "pink",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P102-pink.svg",
+            "alt": "Illustrative pink baby shawl preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "blue",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P102-blue.svg",
+            "alt": "Illustrative blue baby shawl preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "cream",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P102-cream.svg",
+            "alt": "Illustrative cream baby shawl preview; not a product photograph"
+          }
+        }
+      ],
+      "attributes": {
+        "color": [
+          "pink",
+          "blue",
+          "cream"
+        ],
+        "type": [
+          "shawl"
+        ]
+      },
+      "tags": [
+        "baby shawl",
+        "shawl",
+        "baby",
+        "shall"
+      ],
+      "offers": [
+        {
+          "offer_id": "P102-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 18000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P102-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 18000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P102-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 18000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-18T00:00:00Z",
+      "updated_at": "2026-09-18T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P103",
+      "slug": "socks",
+      "name": "Socks",
+      "description": "Explore socks from Shishu care. These illustrations and suggested colours preview our upcoming collection. Final materials, sizes, colours and prices will be confirmed with the product listings.",
+      "category_id": "accessories",
+      "status": "active",
+      "demo": true,
+      "images": [],
+      "illustration_fallback": true,
+      "colour_variants": [
+        {
+          "colour": "pink",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P103-pink.svg",
+            "alt": "Illustrative pink socks preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "blue",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P103-blue.svg",
+            "alt": "Illustrative blue socks preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "cream",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P103-cream.svg",
+            "alt": "Illustrative cream socks preview; not a product photograph"
+          }
+        }
+      ],
+      "attributes": {
+        "color": [
+          "pink",
+          "blue",
+          "cream"
+        ],
+        "type": [
+          "socks"
+        ]
+      },
+      "tags": [
+        "socks",
+        "socks",
+        "baby",
+        "socks"
+      ],
+      "offers": [
+        {
+          "offer_id": "P103-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 12000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P103-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 12000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P103-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 12000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-18T00:00:00Z",
+      "updated_at": "2026-09-18T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P104",
+      "slug": "diaper-sets",
+      "name": "Diaper sets",
+      "description": "Explore diaper sets from Shishu care. These illustrations and suggested colours preview our upcoming collection. Final materials, sizes, colours and prices will be confirmed with the product listings.",
+      "category_id": "clothing",
+      "status": "active",
+      "demo": true,
+      "images": [],
+      "illustration_fallback": true,
+      "colour_variants": [
+        {
+          "colour": "pink",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P104-pink.svg",
+            "alt": "Illustrative pink diaper sets preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "blue",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P104-blue.svg",
+            "alt": "Illustrative blue diaper sets preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "cream",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P104-cream.svg",
+            "alt": "Illustrative cream diaper sets preview; not a product photograph"
+          }
+        }
+      ],
+      "attributes": {
+        "color": [
+          "pink",
+          "blue",
+          "cream"
+        ],
+        "type": [
+          "diaper"
+        ]
+      },
+      "tags": [
+        "diaper sets",
+        "diaper",
+        "baby",
+        "diaper"
+      ],
+      "offers": [
+        {
+          "offer_id": "P104-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 20000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P104-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 20000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P104-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 20000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-18T00:00:00Z",
+      "updated_at": "2026-09-18T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P105",
+      "slug": "baby-bibs",
+      "name": "Baby bibs",
+      "description": "Explore baby bibs from Shishu care. These illustrations and suggested colours preview our upcoming collection. Final materials, sizes, colours and prices will be confirmed with the product listings.",
+      "category_id": "accessories",
+      "status": "active",
+      "demo": true,
+      "images": [],
+      "illustration_fallback": true,
+      "colour_variants": [
+        {
+          "colour": "pink",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P105-pink.svg",
+            "alt": "Illustrative pink baby bibs preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "blue",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P105-blue.svg",
+            "alt": "Illustrative blue baby bibs preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "cream",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P105-cream.svg",
+            "alt": "Illustrative cream baby bibs preview; not a product photograph"
+          }
+        }
+      ],
+      "attributes": {
+        "color": [
+          "pink",
+          "blue",
+          "cream"
+        ],
+        "type": [
+          "bib"
+        ]
+      },
+      "tags": [
+        "baby bibs",
+        "bib",
+        "baby",
+        "bib"
+      ],
+      "offers": [
+        {
+          "offer_id": "P105-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 13000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P105-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 13000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P105-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 13000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-18T00:00:00Z",
+      "updated_at": "2026-09-18T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P106",
+      "slug": "sleeping-mat",
+      "name": "Sleeping mat",
+      "description": "Explore sleeping mat from Shishu care. These illustrations and suggested colours preview our upcoming collection. Final materials, sizes, colours and prices will be confirmed with the product listings.",
+      "category_id": "home",
+      "status": "active",
+      "demo": true,
+      "images": [],
+      "illustration_fallback": true,
+      "colour_variants": [
+        {
+          "colour": "pink",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P106-pink.svg",
+            "alt": "Illustrative pink sleeping mat preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "blue",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P106-blue.svg",
+            "alt": "Illustrative blue sleeping mat preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "cream",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P106-cream.svg",
+            "alt": "Illustrative cream sleeping mat preview; not a product photograph"
+          }
+        }
+      ],
+      "attributes": {
+        "color": [
+          "pink",
+          "blue",
+          "cream"
+        ],
+        "type": [
+          "mat"
+        ]
+      },
+      "tags": [
+        "sleeping mat",
+        "mat",
+        "baby",
+        "mat"
+      ],
+      "offers": [
+        {
+          "offer_id": "P106-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 19000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P106-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 19000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P106-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 19000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-18T00:00:00Z",
+      "updated_at": "2026-09-18T00:00:00Z"
+    },
+    {
+      "schema_version": 1,
+      "product_id": "P107",
+      "slug": "baby-swaddle",
+      "name": "Baby swaddle",
+      "description": "Explore baby swaddle from Shishu care. These illustrations and suggested colours preview our upcoming collection. Final materials, sizes, colours and prices will be confirmed with the product listings.",
+      "category_id": "home",
+      "status": "active",
+      "demo": true,
+      "images": [],
+      "illustration_fallback": true,
+      "colour_variants": [
+        {
+          "colour": "pink",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P107-pink.svg",
+            "alt": "Illustrative pink baby swaddle preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "blue",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P107-blue.svg",
+            "alt": "Illustrative blue baby swaddle preview; not a product photograph"
+          }
+        },
+        {
+          "colour": "cream",
+          "photos": [],
+          "illustration": {
+            "src": "/images/P107-cream.svg",
+            "alt": "Illustrative cream baby swaddle preview; not a product photograph"
+          }
+        }
+      ],
+      "attributes": {
+        "color": [
+          "pink",
+          "blue",
+          "cream"
+        ],
+        "type": [
+          "swaddle"
+        ]
+      },
+      "tags": [
+        "baby swaddle",
+        "swaddle",
+        "baby",
+        "swaddle"
+      ],
+      "offers": [
+        {
+          "offer_id": "P107-meesho",
+          "marketplace_id": "meesho",
+          "url": null,
+          "price_minor": 17000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P107-amazon",
+          "marketplace_id": "amazon",
+          "url": null,
+          "price_minor": 17000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        },
+        {
+          "offer_id": "P107-flipkart",
+          "marketplace_id": "flipkart",
+          "url": null,
+          "price_minor": 17000,
+          "currency": "INR",
+          "availability": "unknown",
+          "last_verified_at": null
+        }
+      ],
+      "created_at": "2026-09-18T00:00:00Z",
+      "updated_at": "2026-09-18T00:00:00Z"
+    }
+  ]
+}

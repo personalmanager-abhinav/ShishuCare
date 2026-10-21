@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../../data/site.json';
+---
+
+<Layout title={`Privacy — ${site.name}`}>
+  <section class="prose">
+    <p class="eyebrow">YOUR CHOICES</p>
+    <h1>Thoughtful about privacy, too.</h1>
+    <p>
+      This demo uses optional first-party analytics. Browsing and search work without accepting
+      analytics.
+    </p>
+    <h2>What we measure</h2>
+    <p>
+      If you agree, a random browser identifier connects page views, searches, product views, and
+      marketplace clicks. It does not identify you across devices. Analytics does not require your
+      name, email, or phone number.
+    </p>
+    <h2>Search</h2>
+    <p>
+      When semantic search is enabled, search text is sent to Cloudflare’s embedding service to find
+      relevant products. Avoid entering personal information. Analytics stores redacted search text
+      only when you opt in.
+    </p>
+    <h2>How long data stays</h2>
+    <p>
+      Recent events stay in the analytics database for up to 30 days and in private archives for up
+      to 180 days. Search text is excluded from archives. Anonymous aggregate counts may be kept for
+      24 months. Browser identifiers expire after 90 days.
+    </p>
+    <h2>Your controls</h2>
+    <h3>Recommendations for this visit</h3>
+    <p>
+      Related products work without tracking. If you choose the option below, up to eight recently
+      viewed product IDs in this tab help order recommendations. This optional history expires after
+      30 minutes of inactivity and is cleared when you turn it off or delete browsing history. It is
+      separate from analytics consent.
+    </p>
+    <label>
+      <input type="checkbox" id="session-personalization" /> Use my recent views in this tab to
+      tailor related products
+    </label>
+    <p>
+      When analytics is allowed, we also measure visible recommendations and clicks. If a ranking
+      experiment is enabled, consenting browsers receive a consistent version. These measurements
+      are not purchases.
+    </p>
+    <p>
+      Cookie preferences let you allow or decline future analytics. Deleting this browser’s history
+      also removes its recorded events and archived history. This cannot delete purchases or
+      activity on external marketplaces.
+    </p>
+    <button id="delete-history" class="button secondary">
+      Delete this browser’s history
+    </button>
+    <p id="delete-status" role="status"></p>
+    <h2>Mannpasand and parent notes</h2>
+    <p>
+      Mannpasand stores saved product IDs only in this browser. Remove saved items on the Mannpasand
+      page or clear this site's browser storage. It does not sync across devices.
+    </p>
+    <p>
+      Optional parent notes collect your chosen public display name, avatar, rating and review.
+      Notes are held privately for owner review before publication and are not purchase-verified. Do
+      not include contact details or information identifying children. You can withdraw your
+      submitted note from its product's review form on this browser; clearing browser storage
+      removes that withdrawal key. Notes remain until withdrawn or removed by the owner. Review
+      submission is separate from optional analytics.
+    </p>
+    <p>
+      To avoid repeated prompts, this browser remembers the first time you opened a product and
+      whether its later-visit reminder was shown. It sends no browsing history for this reminder.
+      Clearing site storage resets these preferences. Deleting analytics history does not remove
+      Mannpasand or submitted notes.
+    </p>
+    <h2>Before launch</h2>
+    <p>
+      This is a development privacy notice. Business contact details and the final policy must be
+      added before publishing.
+    </p>
+  </section>
+</Layout>

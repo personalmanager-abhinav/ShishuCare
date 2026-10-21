@@ -1,0 +1,178 @@
+---
+import StageLayout from '../layouts/StageLayout.astro';
+import catalogue from '../generated/catalogue.json';
+import taxonomy from '../../data/taxonomy.json';
+import { money, price, type Product } from '../lib/product';
+
+const products = (catalogue.products as Product[]).filter((product) => product.status === 'active');
+const assetName: Record<string, string> = {
+  P101: 'caps',
+  P102: 'baby-shawl',
+  P103: 'socks',
+  P104: 'diaper-sets',
+  P105: 'baby-bibs',
+  P106: 'sleeping-mat',
+  P107: 'baby-swaddle',
+};
+---
+
+<StageLayout>
+  <div
+    class="stage-app"
+    data-stage-app
+    data-products={JSON.stringify(
+      products.map((product) => ({
+        id: product.product_id,
+        name: product.name,
+        category:
+          taxonomy.find((item) => item.id === product.category_id)?.name || product.category_id,
+        price: money(price(product)),
+        description: product.description,
+        image: `/images/wardrobe-v2/${assetName[product.product_id]}.webp`,
+        colours: product.attributes.color || [],
+        search: `${product.name} ${product.tags.join(' ')} ${product.category_id}`.toLowerCase(),
+      })),
+    )}
+  >
+    <header class="stage-header">
+      <a class="stage-brand" href="/stage/" aria-label="Shishu care product stage home">
+        <strong>
+          Shishu <i>care</i>
+        </strong>
+        <span>Small steps. Brighter tomorrows.</span>
+      </a>
+      <nav aria-label="Stage navigation">
+        <a href="/">Classic shop</a>
+        <a href="/wardrobe/">Wardrobe</a>
+        <a href="/about/">Our story</a>
+      </nav>
+      <div class="stage-header-actions">
+        <button
+          type="button"
+          class="stage-icon-button"
+          id="stage-search-toggle"
+          aria-label="Search products"
+          aria-expanded="false"
+        >
+          ⌕
+        </button>
+        <a class="stage-icon-button" href="/mannpasand/" aria-label="Open Mannpasand">
+          ♡
+        </a>
+      </div>
+      <form class="stage-search" id="stage-search" role="search" hidden>
+        <label class="sr-only" for="stage-query">
+          Search products
+        </label>
+        <input
+          id="stage-query"
+          type="search"
+          autocomplete="off"
+          placeholder="Search caps, bibs, wraps…"
+        />
+        <div id="stage-search-results" role="listbox"></div>
+        <button type="button" id="stage-search-close" aria-label="Close search">
+          ×
+        </button>
+      </form>
+    </header>
+
+    <main id="stage-main" class="stage-main" tabindex="-1">
+      <section class="stage-intro" aria-labelledby="stage-heading">
+        <p>Thoughtfully chosen</p>
+        <h1 id="stage-heading">
+          Little essentials
+          <br />
+          for brighter
+          <br />
+          tomorrows.<span aria-hidden="true">♡</span>
+        </h1>
+        <p>Soft, useful finds for every little moment.</p>
+      </section>
+
+      <section class="stage-showcase" aria-label="Selected product">
+        <div class="stage-halo" aria-hidden="true"></div>
+        <div class="stage-neighbour stage-neighbour-previous" aria-hidden="true">
+          <img id="stage-previous-image" alt="" />
+        </div>
+        <div class="stage-product" id="stage-product">
+          <div class="stage-product-shadow" aria-hidden="true"></div>
+          <img id="stage-product-image" alt="" draggable="false" />
+        </div>
+        <div class="stage-neighbour stage-neighbour-next" aria-hidden="true">
+          <img id="stage-next-image" alt="" />
+        </div>
+        <div class="stage-podium" aria-hidden="true">
+          <span></span>
+        </div>
+        <button
+          class="stage-arrow stage-arrow-previous"
+          id="stage-previous"
+          type="button"
+          aria-label="Previous product"
+        >
+          ‹
+        </button>
+        <button
+          class="stage-arrow stage-arrow-next"
+          id="stage-next"
+          type="button"
+          aria-label="Next product"
+        >
+          ›
+        </button>
+        <p class="stage-position" id="stage-position" aria-live="polite"></p>
+      </section>
+
+      <aside class="stage-details" aria-live="polite">
+        <div class="stage-details-heading">
+          <div>
+            <p id="stage-category"></p>
+            <h2 id="stage-name"></h2>
+          </div>
+          <button
+            class="stage-save"
+            type="button"
+            data-save-product=""
+            aria-label="Save to Mannpasand"
+            aria-pressed="false"
+          >
+            ♡
+          </button>
+        </div>
+        <strong id="stage-price"></strong>
+        <p id="stage-description"></p>
+        <div class="stage-colours" id="stage-colours" aria-label="Available colours"></div>
+        <button class="stage-primary" id="stage-buy" type="button" data-product-open="">
+          Choose marketplace <span>↗</span>
+        </button>
+        <button
+          class="stage-secondary"
+          id="stage-offer"
+          type="button"
+          data-product-open=""
+          data-stage-offer
+        >
+          ₹ Make an offer
+        </button>
+        <small>Payment, delivery and returns stay with your chosen marketplace.</small>
+      </aside>
+
+      <div class="stage-index" role="tablist" aria-label="Choose a product">
+        {products.map((product, index) => (
+          <button
+            type="button"
+            role="tab"
+            aria-selected={index === 0 ? 'true' : 'false'}
+            data-stage-index={index}
+            data-product-id={product.product_id}
+          >
+            <img src={`/images/wardrobe-v2/${assetName[product.product_id]}.webp`} alt="" />
+            <span>{product.name}</span>
+          </button>
+        ))}
+      </div>
+      <p class="stage-instructions">Use ← → keys, swipe, or choose below</p>
+    </main>
+  </div>
+</StageLayout>

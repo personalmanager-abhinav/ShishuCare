@@ -1,0 +1,13 @@
+{
+  "name": "Shishu care Product Stage",
+  "short_name": "Shishu Stage",
+  "description": "A focused way to discover Shishu care baby essentials.",
+  "start_url": "/stage/",
+  "scope": "/stage/",
+  "display": "standalone",
+  "background_color": "#fffaf4",
+  "theme_color": "#edf7fc",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

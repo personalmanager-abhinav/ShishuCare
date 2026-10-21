@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "product_id": "P104",
+  "slug": "diaper-sets",
+  "name": "Diaper sets",
+  "description": "Explore diaper sets from Shishu care. These illustrations and suggested colours preview our upcoming collection. Final materials, sizes, colours and prices will be confirmed with the product listings.",
+  "category_id": "clothing",
+  "status": "active",
+  "demo": true,
+  "images": [],
+  "attributes": {
+    "color": [
+      "pink",
+      "blue",
+      "cream"
+    ],
+    "type": [
+      "diaper"
+    ]
+  },
+  "tags": [
+    "diaper sets",
+    "diaper",
+    "baby",
+    "diaper"
+  ],
+  "offers": [
+    {
+      "offer_id": "P104-meesho",
+      "marketplace_id": "meesho",
+      "url": null,
+      "price_minor": 20000,
+      "currency": "INR",
+      "availability": "unknown",
+      "last_verified_at": null
+    },
+    {
+      "offer_id": "P104-amazon",
+      "marketplace_id": "amazon",
+      "url": null,
+      "price_minor": 20000,
+      "currency": "INR",
+      "availability": "unknown",
+      "last_verified_at": null
+    },
+    {
+      "offer_id": "P104-flipkart",
+      "marketplace_id": "flipkart",
+      "url": null,
+      "price_minor": 20000,
+      "currency": "INR",
+      "availability": "unknown",
+      "last_verified_at": null
+    }
+  ],
+  "created_at": "2026-09-18T00:00:00Z",
+  "updated_at": "2026-09-18T00:00:00Z",
+  "illustration_fallback": true,
+  "colour_variants": [
+    {
+      "colour": "pink",
+      "photos": [],
+      "illustration": {
+        "src": "/images/P104-pink.svg",
+        "alt": "Illustrative pink diaper sets preview; not a product photograph"
+      }
+    },
+    {
+      "colour": "blue",
+      "photos": [],
+      "illustration": {
+        "src": "/images/P104-blue.svg",
+        "alt": "Illustrative blue diaper sets preview; not a product photograph"
+      }
+    },
+    {
+      "colour": "cream",
+      "photos": [],
+      "illustration": {
+        "src": "/images/P104-cream.svg",
+        "alt": "Illustrative cream diaper sets preview; not a product photograph"
+      }
+    }
+  ]
+}

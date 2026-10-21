@@ -1,0 +1,90 @@
+/* Only decorative descendants animate. The isolated layer never affects layout. */
+.ambient-section {
+  position: relative;
+  isolation: isolate;
+}
+.ambient-particles {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  overflow: hidden;
+  contain: strict;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  animation: ambient-entry 2.6s ease-out both;
+  animation-play-state: paused;
+}
+.ambient-mote {
+  position: absolute;
+  display: block;
+  width: var(--mote-size);
+  height: var(--mote-size);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--palette-75967d, #927127) 0% 45%, transparent 100%);
+  animation:
+    ambient-drift var(--drift-duration) ease-in-out var(--phase) infinite alternate,
+    ambient-breathe var(--breathe-duration) ease-in-out var(--phase) infinite alternate;
+  animation-play-state: paused;
+}
+.ambient-particles[data-running] {
+  animation-play-state: running;
+}
+.ambient-particles[data-running] .ambient-mote {
+  animation-play-state: running;
+}
+@keyframes ambient-entry {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: var(--ambient-opacity);
+  }
+}
+@keyframes ambient-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  43% {
+    transform: translate3d(calc(var(--dx) * 0.35), calc(var(--dy) * 0.65), 0);
+  }
+  100% {
+    transform: translate3d(var(--dx), var(--dy), 0);
+  }
+}
+@keyframes ambient-breathe {
+  from {
+    opacity: 0.75;
+  }
+  to {
+    opacity: 0.95;
+  }
+}
+/* On narrow screens keep motes in the gutters, away from stacked copy. */
+@media (max-width: 760px) {
+  .ambient-mote:nth-child(odd) {
+    left: 2% !important;
+  }
+  .ambient-mote:nth-child(even) {
+    left: 98% !important;
+  }
+  .ambient-mote:nth-child(n + 9) {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-particles {
+    display: block;
+    opacity: 0.6;
+    animation: none;
+  }
+  .ambient-mote {
+    opacity: 0.8;
+    animation: none;
+  }
+  .ambient-mote:nth-child(n + 5),
+  [data-ambient="footer"] .ambient-mote:nth-child(n + 4) {
+    display: none;
+  }
+}

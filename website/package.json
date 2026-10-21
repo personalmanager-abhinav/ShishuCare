@@ -1,0 +1,49 @@
+{
+  "name": "marketplace-catalogue",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "backup:local": "tsx scripts/backup.ts",
+    "backup:tombstones": "tsx scripts/export-tombstones.ts",
+    "recovery:prepare": "tsx scripts/recovery-bundle.ts",
+    "production:configure": "tsx scripts/production-config.ts",
+    "health:check": "tsx scripts/check-health.ts",
+    "discovery:evaluate": "tsx scripts/evaluate-discovery.ts",
+    "search:evaluate": "tsx scripts/evaluate-search.ts",
+    "recovery:drill": "tsx tests/recovery-drill.ts",
+    "restore:prepare": "tsx scripts/restore.ts",
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "node scripts/fonts.mjs && tsx scripts/catalogue.ts && astro build",
+    "check": "astro check && tsc --noEmit && tsc -p workers/tsconfig.json && tsc -p tests/tsconfig.json",
+    "test": "tsx --test tests/*.test.ts",
+    "preview": "wrangler dev --local --port 8787",
+    "db:local": "wrangler d1 migrations apply catalogue-analytics --local",
+    "embeddings": "tsx scripts/embeddings.ts",
+    "release:check": "tsx scripts/catalogue.ts --production",
+    "deploy": "pnpm run release:check && pnpm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "@fontsource/poppins": "^5.3.0",
+    "astro": "^6.0.0",
+    "jose": "^6.0.0",
+    "three": "^0.186.1",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "@cloudflare/workers-types": "^5.20260917.1",
+    "@playwright/test": "^1.55.0",
+    "@types/node": "^24.0.0",
+    "@types/three": "^0.186.0",
+    "prettier": "^3.9.7",
+    "prettier-plugin-astro": "^1.0.0",
+    "sharp": "^0.35.4",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "wrangler": "^4.0.0"
+  }
+}

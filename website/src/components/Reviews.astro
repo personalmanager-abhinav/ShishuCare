@@ -1,0 +1,68 @@
+---
+const { id = '' } = Astro.props;
+---
+
+<section class="product-reviews" data-reviews-product={id} aria-label="Parent experiences">
+  <h3>Parent notes</h3>
+  <div data-review-list></div>
+  <details class="review-compose">
+    <summary data-review-invite>Share an experience</summary>
+    <p class="review-help">
+      Bought this or spent time with it? You’re welcome to share. No account needed. Purchase is not
+      verified.
+    </p>
+    <form class="review-form">
+      <label>
+        Display name
+        <input name="name" required minlength="2" maxlength="40" autocomplete="nickname" />
+      </label>
+      <label>
+        Little avatar <span>(optional)</span>
+        <select name="avatar">
+          <option value="initial">Your initial</option>
+          <option value="flower">Flower</option>
+          <option value="moon">Moon</option>
+          <option value="leaf">Leaf</option>
+        </select>
+      </label>
+      <label>
+        Your experience
+        <select name="rating" required>
+          <option value="">Choose a rating</option>
+          <option value="5">5 — Loved it</option>
+          <option value="4">4 — Happy with it</option>
+          <option value="3">3 — Mixed feelings</option>
+          <option value="2">2 — Could be better</option>
+          <option value="1">1 — Disappointed</option>
+        </select>
+      </label>
+      <label class="review-wide">
+        Your note
+        <textarea
+          name="review"
+          required
+          minlength="10"
+          maxlength="600"
+          rows="3"
+          placeholder="What would another parent find helpful?"
+        ></textarea>
+      </label>
+      <label class="review-trap" aria-hidden="true">
+        Leave this blank
+        <input name="website" tabindex="-1" autocomplete="off" />
+      </label>
+      <label class="review-consent review-wide">
+        <input type="checkbox" name="consent" required />
+        You may display my note, rating, name and avatar after review. Please don’t include contact
+        or child-identifying details.
+      </label>
+      <button class="button" type="submit">
+        Send my note
+      </button>
+    </form>
+    <p data-review-status role="status"></p>
+    <button class="text-button" data-review-withdraw hidden type="button">
+      Withdraw my note
+    </button>
+  </details>
+</section>

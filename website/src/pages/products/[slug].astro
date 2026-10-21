@@ -1,0 +1,119 @@
+---
+import { gallery } from '../../lib/gallery';
+import { imageSources, detailSizes } from '../../lib/responsive-image';
+import ColourChoices from '../../components/ColourChoices.astro';
+import SaveButton from '../../components/SaveButton.astro';
+import Reviews from '../../components/Reviews.astro';
+import Recommendations from '../../components/Recommendations.astro';
+import Layout from '../../layouts/Layout.astro';
+import catalogue from '../../generated/catalogue.json';
+import marketplaces from '../../../data/marketplaces.json';
+import site from '../../../data/site.json';
+import { money, price, type Product } from '../../lib/catalogue';
+export function getStaticPaths() {
+  return catalogue.products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+const { product } = Astro.props as { product: Product };
+---
+
+<Layout title={`${product.name} — ${site.name}`} description={product.description}>
+  <section class="product-detail" data-detail-product={product.product_id}>
+    <a class="breadcrumb" href="/#collection">
+      ← Back to the collection
+    </a>
+    <div class="detail-grid">
+      <div class="detail-image">
+        <img
+          src={gallery(product)[0].src}
+          srcset={imageSources(gallery(product)[0].src)}
+          sizes={detailSizes}
+          data-fallback={gallery(product)[0].fallback}
+          alt={gallery(product)[0].alt}
+          width="800"
+          height="960"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="detail-copy">
+        <p class="eyebrow">
+          {product.category_id} / {product.product_id}
+        </p>
+        <h1>{product.name}</h1>
+        <SaveButton id={product.product_id} />
+        <p class="detail-price">
+          {money(price(product))}
+          <span>Listed price · confirm on marketplace</span>
+        </p>
+        <div class="detail-bargain-entry">
+          <button
+            class="bargain-button"
+            type="button"
+            data-product-open={product.product_id}
+            aria-haspopup="dialog"
+          >
+            <span class="bargain-button-icon" aria-hidden="true">
+              ₹
+            </span>
+            <span>
+              <strong>Make an offer</strong>
+              <small>मोलभाव करें</small>
+            </span>
+            <span class="bargain-button-arrow" aria-hidden="true">
+              →
+            </span>
+          </button>
+          <p>Demo conversation only · no real coupon is issued.</p>
+        </div>
+        <p class="description">{product.description}</p>
+        <ColourChoices product={product} />
+        <p class="colour-note">
+          Illustrative colours; confirm available options on the marketplace.
+        </p>
+        <dl class="attributes">
+          {Object.entries(product.attributes).map(([key, values]) => (
+            <div>
+              <dt>{key}</dt>
+              <dd>{values.join(', ')}</dd>
+            </div>
+          ))}
+        </dl>
+        <div class="marketplace-chooser">
+          <h2>Choose where to buy</h2>
+          <p>Same discovery. Your preferred marketplace.</p>
+          {product.offers.map((offer) => {
+            const market = marketplaces.find((m) => m.id === offer.marketplace_id);
+            return offer.url && offer.availability !== 'unavailable' ? (
+              <a
+                class="marketplace"
+                href={offer.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-offer={offer.offer_id}
+                data-marketplace={offer.marketplace_id}
+                data-product={product.product_id}
+              >
+                <span>
+                  Buy on <strong>{market?.name}</strong>
+                </span>
+                <span>{money(offer.price_minor)} ↗</span>
+              </a>
+            ) : (
+              <div class="marketplace disabled">
+                <span>{market?.name}</span>
+                <span>{product.demo ? 'Demo · link not added' : 'Currently unavailable'}</span>
+              </div>
+            );
+          })}
+          <small>
+            Checkout, delivery, returns, and final prices are handled by your chosen marketplace.
+          </small>
+        </div>
+        <Reviews id={product.product_id} />
+        <Recommendations productId={product.product_id} />
+      </div>
+    </div>
+  </section>
+</Layout>

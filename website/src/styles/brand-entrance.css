@@ -1,0 +1,95 @@
+.brand-name {
+  display: inline-block;
+  white-space: nowrap;
+}
+.brand-i {
+  position: relative;
+  display: inline-block;
+}
+.brand-i-stem {
+  display: inline-block;
+  clip-path: inset(0.4em 0 0 0);
+}
+.brand-blue-dot {
+  position: absolute;
+  width: 0.135em;
+  height: 0.135em;
+  left: calc(50% + 0.015em);
+  top: 0.225em;
+  margin-left: -0.0675em;
+  background-color: #2b8fd6;
+  background-image: radial-gradient(
+    circle at 34% 28%,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.2) 32%,
+    rgba(43, 143, 214, 0) 70%
+  );
+  border-radius: 50%;
+  box-shadow:
+    0 0 0.018em rgba(43, 143, 214, 0.55),
+    inset -0.01em -0.01em 0.02em rgba(17, 92, 150, 0.45);
+}
+.brand-splash {
+  position: absolute;
+  left: calc(50% + 0.015em);
+  top: 0.29em;
+  width: 0.07em;
+  height: 0.07em;
+  margin-left: -0.035em;
+  background-color: #2b8fd6;
+  background-image: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.9),
+    rgba(43, 143, 214, 0) 70%
+  );
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+html[data-brand-intro] .site-header .brand-name {
+  visibility: hidden;
+}
+html[data-brand-intro]::before,
+.brand-entrance-backdrop {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  z-index: 100;
+}
+html[data-brand-intro='playing']::before {
+  display: none;
+}
+.brand-entrance {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+.brand-entrance-flight {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  z-index: 101;
+}
+.brand-entrance .brand-name {
+  transform-origin: center;
+}
+.brand-doodles {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  overflow: hidden;
+  pointer-events: none;
+}
+.brand-doodles svg { display: block; width: 100%; height: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  html[data-brand-intro]::before,
+  .brand-entrance {
+    display: none;
+  }
+  html[data-brand-intro] .site-header .brand-name {
+    visibility: visible;
+  }
+}

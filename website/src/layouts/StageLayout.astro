@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+import '../styles/refinement.css';
+import '../styles/palette.css';
+import '../styles/delights.css';
+import '../styles/controls.css';
+import '../styles/community.css';
+import '../styles/recommendations.css';
+import '../styles/stage.css';
+import site from '../../data/site.json';
+import ProductDialog from '../components/ProductDialog.astro';
+
+const { title = `Product stage · ${site.name}`, description = site.description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme={site.theme}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#edf7fc" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, site.url)} />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="manifest" href="/stage.webmanifest" />
+    <link rel="stylesheet" href="/fonts/poppins.css" />
+    {site.demo && <meta name="robots" content="noindex,nofollow" />}
+  </head>
+  <body class="stage-body">
+    <a class="stage-skip" href="#stage-main">
+      Skip to products
+    </a>
+    <slot />
+    <p id="save-status" class="sr-only" role="status"></p>
+    <ProductDialog />
+    <section class="consent" id="consent" aria-label="Analytics preferences" hidden>
+      <div>
+        <strong>Your browsing, your choice.</strong>
+        <p>Allow anonymous analytics to improve discovery?</p>
+      </div>
+      <div class="consent-actions">
+        <button class="button secondary" id="decline-analytics">
+          No thanks
+        </button>
+        <button class="button" id="allow-analytics">
+          Allow analytics
+        </button>
+      </div>
+    </section>
+    <script>
+      import '../scripts/tracking';
+      import '../scripts/product-dialog';
+      import '../scripts/mannpasand';
+      import '../scripts/reviews';
+      import '../scripts/recommendations';
+      import '../scripts/stage';
+    </script>
+  </body>
+</html>

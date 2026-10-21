@@ -1,0 +1,56 @@
+# Dependencies and package-manager caches
+**/node_modules/
+**/.pnpm-store/
+
+# Environment files and local secrets
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.*.example
+**/.dev.vars
+**/.dev.vars.*
+!**/.dev.vars.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Generated application and Cloudflare state
+**/dist/
+**/.astro/
+**/.wrangler/
+**/public/images/generated/
+**/wrangler.production-*.json
+
+# Test, coverage, and temporary outputs
+**/coverage/
+**/test-results/
+**/playwright-report/
+**/work/
+*.log
+*.tmp
+*.temp
+
+# Local databases and backups
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sql.gz
+*.bak
+*.tgz
+*.zip
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+.fuse_hidden*
+
+# Noncanonical local scratch and transfer areas
+/Claude outputs/
+/_to_delete/
+/brand-entrance.mjs
+/brand-entrance.ts

@@ -1,0 +1,199 @@
+.choice-menu {
+  position: relative;
+  min-width: 145px;
+}
+.choice-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff9;
+  color: inherit;
+  font-size: 11px;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+.choice-trigger::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid;
+  border-bottom: 1.5px solid;
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.25s;
+}
+.choice-trigger[aria-expanded='true']::after {
+  transform: rotate(225deg);
+}
+.choice-trigger:hover {
+  background: #fff;
+  box-shadow: 0 4px 15px #7553620a;
+}
+.choice-options {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  min-width: 100%;
+  width: max-content;
+  max-width: 85vw;
+  padding: 7px;
+  background: #fffafded;
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  box-shadow: 0 14px 35px #75536220;
+  z-index: 8;
+  transform-origin: top;
+  animation: menu-bloom 0.2s ease-out;
+}
+.choice-options button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-radius: 11px;
+  padding: 11px 14px;
+  background: transparent;
+  color: inherit;
+  font-size: 12px;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.choice-options button:is(:hover, :focus-visible),
+.choice-options button[aria-selected='true'] {
+  background: #f9e7f0;
+}
+.choice-options button:hover {
+  transform: translateX(2px);
+}
+.colour-choices {
+  padding: 0 5px;
+  margin: 12px 0;
+}
+.colour-choices p {
+  font-size: 11px;
+  margin: 0 0 9px;
+  color: var(--muted);
+}
+[data-colour-label] {
+  text-transform: capitalize;
+}
+.swatch-row {
+  display: flex;
+  gap: 10px;
+}
+.colour-swatch {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background: var(--swatch);
+  box-shadow: 0 0 0 1px var(--line);
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.colour-swatch[aria-pressed='true'] {
+  box-shadow: 0 0 0 1.5px var(--muted);
+}
+.colour-swatch:hover {
+  transform: translateY(-3px) scale(1.08);
+}
+.colour-note {
+  font-size: 10px;
+  color: var(--muted);
+  margin: 10px 0 20px;
+}
+.dialog-close:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 14px #75536218;
+}
+.dialog-close svg {
+  display: block;
+  transform-origin: center;
+}
+
+.gallery-navigation .icon-button:hover {
+  transform: translateY(-2px) scale(1.08);
+}
+.breadcrumb,
+.buy-strip a {
+  transition:
+    color 0.2s,
+    transform 0.2s;
+}
+.breadcrumb:hover,
+.buy-strip a:hover {
+  color: var(--muted);
+  transform: translateX(3px);
+}
+@keyframes menu-bloom {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 760px) {
+  .choice-menu {
+    min-width: 0;
+    flex: 1;
+  }
+  .choice-trigger {
+    font-size: 10px;
+    padding: 11px;
+    gap: 10px;
+  }
+  .colour-swatch {
+    width: 24px;
+    height: 24px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dialog-close:hover,
+  .dialog-close:is(:hover, :focus-visible) svg,
+  .colour-swatch:hover,
+  .choice-options button:hover,
+  .breadcrumb:hover,
+  .buy-strip a:hover {
+    transform: none;
+  }
+}
+.intro .eyebrow {
+  text-transform: none;
+}
+
+.intro .eyebrow {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(17px, 1.5vw, 21px);
+  letter-spacing: 0.025em;
+}
+
+/* Full-width notes give colour choices their own breathing room. */
+.card-personal-details { padding: 0 5px; margin: 16px 0 0; }
+.card-personal-details .colour-choices { padding: 0; margin: 0 0 16px; }
+.parent-note { border-top: 1px solid var(--line); padding-top: 12px; min-width: 0; }
+.parent-note-heading { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 10px; }
+.parent-note-heading svg { flex-shrink: 0; transition: transform .3s ease; }
+.parent-note p, .parent-note blockquote { margin: 5px 0 0; font-family: Georgia, serif; font-style: italic; font-size: 13px; line-height: 1.45; color: var(--muted); overflow-wrap: anywhere; }
+.parent-note small { display: block; margin-top: 4px; font-size: 10px; color: var(--muted); }
+.parent-note:hover svg { transform: translateY(-2px) rotate(-8deg); }
+@media (max-width: 760px) {
+ .card-personal-details { padding: 0 3px; margin-top: 14px; }
+ .card-personal-details .colour-choices { margin-bottom: 14px; }
+ .parent-note { padding-top: 10px; }
+ .parent-note-heading { font-size: 10px; }
+ .parent-note p, .parent-note blockquote { font-size: 12px; }
+}
+@media(prefers-reduced-motion:reduce) { .parent-note:hover svg { transform: none; } }

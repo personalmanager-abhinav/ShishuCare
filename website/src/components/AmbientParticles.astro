@@ -1,0 +1,72 @@
+---
+import '../styles/ambient.css';
+interface Props {
+  variant: 'hero' | 'footer' | 'mannpasand';
+}
+const { variant } = Astro.props;
+// Deterministic positions keep the centre clear and never change during hydration.
+const presets = {
+  hero: {
+    opacity: 0.72,
+    speed: 1,
+    range: 1,
+    positions: [
+      [9, 12],
+      [29, 8],
+      [54, 15],
+      [73, 9],
+      [91, 18],
+      [97, 38],
+      [96, 70],
+      [85, 91],
+      [65, 88],
+      [47, 94],
+      [3, 63],
+      [2, 32],
+    ],
+  },
+  footer: {
+    opacity: 0.5,
+    speed: 1.4,
+    range: 0.6,
+    positions: [
+      [22, 16],
+      [47, 25],
+      [73, 12],
+      [94, 67],
+    ],
+  },
+  mannpasand: {
+    opacity: 0.62,
+    speed: 1.2,
+    range: 0.8,
+    positions: [
+      [12, 12],
+      [35, 9],
+      [62, 16],
+      [87, 10],
+      [97, 45],
+      [82, 90],
+      [47, 93],
+    ],
+  },
+};
+const preset = presets[variant];
+---
+
+<span
+  class="ambient-particles"
+  data-ambient={variant}
+  aria-hidden="true"
+  style={`--ambient-opacity:${preset.opacity}`}
+>
+  {preset.positions.map(([x, y], i) => (
+    <span
+      class="ambient-mote"
+      style={`left:${x}%;top:${y}%;--mote-size:${3 + (i % 4) * 0.5}px;--drift-duration:${(18 + i * 1.9) * preset.speed}s;--breathe-duration:${23 + i * 2.3}s;--phase:${-i * 7.1}s;--dx:${(i % 2 ? -24 : 28) * preset.range}px;--dy:${(-18 - (i % 5) * 2) * preset.range}px`}
+    />
+  ))}
+</span>
+<script>
+  import '../scripts/ambient';
+</script>

@@ -1,0 +1,42 @@
+---
+import '../styles/wardrobe.css';
+import site from '../../data/site.json';
+const { title = `The little wardrobe · ${site.name}`, description = site.description } =
+  Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, site.url)} />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/fonts/poppins.css" />
+    {site.demo && <meta name="robots" content="noindex,nofollow" />}
+  </head>
+  <body class="wardrobe-body">
+    <a href="#wardrobe-main" class="wardrobe-skip">
+      Skip to wardrobe
+    </a>
+    <slot />
+    <p id="save-status" class="wardrobe-sr-only" role="status"></p>
+    <section class="wardrobe-consent" id="consent" aria-label="Analytics preferences" hidden>
+      <div>
+        <strong>Your browsing, your choice.</strong>
+        <p>Allow anonymous analytics to improve discovery?</p>
+      </div>
+      <div>
+        <button id="decline-analytics">No thanks</button>
+        <button id="allow-analytics">Allow</button>
+      </div>
+    </section>
+    <script>
+      import '../scripts/tracking';
+      import '../scripts/mannpasand';
+      import '../scripts/wardrobe';
+    </script>
+  </body>
+</html>

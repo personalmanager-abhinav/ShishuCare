@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "marketplace-catalogue",
+  "main": "workers/public.ts",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*", "/internal", "/internal/*"],
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "catalogue-analytics",
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "db/migrations",
+    },
+  ],
+  "r2_buckets": [{ "binding": "ARCHIVE", "bucket_name": "catalogue-private-events" }],
+  "ai": { "binding": "AI" },
+  "vars": {
+    "ENVIRONMENT": "development",
+    "SEMANTIC_ENABLED": "false",
+    "DAILY_EMBEDDING_LIMIT": "500",
+    "ACCESS_TEAM_DOMAIN": "",
+    "ACCESS_AUD": "",
+    "OWNER_EMAIL": "",
+    "BARGAIN_MODE": "demo",
+    "BARGAIN_PUBLIC_ENABLED": "true",
+  },
+  "triggers": { "crons": ["15 * * * *"] },
+  "observability": { "enabled": false },
+}

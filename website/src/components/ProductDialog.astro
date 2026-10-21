@@ -1,0 +1,192 @@
+---
+import SaveButton from './SaveButton.astro';
+import Reviews from './Reviews.astro';
+import Recommendations from './Recommendations.astro';
+---
+
+<dialog id="product-dialog" class="product-dialog" aria-labelledby="dialog-title">
+  <div class="dialog-dismiss">
+    <button
+      class="dialog-close icon-button"
+      type="button"
+      aria-label="Close product details"
+      autofocus
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="m6 6 12 12M18 6 6 18"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <div class="dialog-shell">
+    <div
+      class="dialog-gallery"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Product photos"
+    >
+      <div class="gallery-stage" id="gallery-stage">
+        <img id="dialog-image" alt="" width="800" height="960" draggable="false" />
+        <span id="dialog-demo" class="gallery-label">
+          Illustrative preview
+        </span>
+        <div class="gallery-navigation" id="gallery-navigation">
+          <button type="button" class="icon-button" id="previous-photo" aria-label="Previous photo">
+            ←
+          </button>
+          <span id="photo-counter" aria-live="polite" aria-atomic="true"></span>
+          <button type="button" class="icon-button" id="next-photo" aria-label="Next photo">
+            →
+          </button>
+        </div>
+      </div>
+      <div id="photo-thumbnails" class="photo-thumbnails" aria-label="Choose a product photo"></div>
+    </div>
+
+    <div class="dialog-details">
+      <p class="eyebrow" id="dialog-category"></p>
+      <h2 id="dialog-title"></h2>
+      <SaveButton />
+
+      <div class="dialog-price-row">
+        <div>
+          <p class="dialog-price" id="dialog-price"></p>
+          <p class="price-note">Listed price · confirm on marketplace</p>
+        </div>
+        <button
+          id="bargain-button"
+          class="bargain-button"
+          type="button"
+          aria-expanded="false"
+          aria-controls="bargaining-panel"
+        >
+          <span class="bargain-button-icon" aria-hidden="true">
+            ₹
+          </span>
+          <span>
+            <strong>Make an offer</strong>
+            <small>मोलभाव करें</small>
+          </span>
+          <span class="bargain-button-arrow" aria-hidden="true">
+            →
+          </span>
+        </button>
+      </div>
+
+      <section
+        id="bargaining-panel"
+        class="bargaining-panel"
+        aria-labelledby="dialog-bargaining-title"
+        hidden
+      >
+        <div class="bargaining-panel-head">
+          <div>
+            <p class="bargaining-kicker">Shishu care assistant</p>
+            <h3 id="dialog-bargaining-title">Let’s find a happy price</h3>
+          </div>
+          <button class="bargaining-close" type="button" aria-label="Close bargaining">
+            Close
+          </button>
+        </div>
+        <p class="bargaining-demo-note">
+          <strong>Demo conversation</strong> · No real coupon will be issued.
+        </p>
+        <div id="bargain-setup" class="bargain-setup">
+          <div class="bargain-setup-fields">
+            <label for="bargain-language">
+              <span>Conversation language</span>
+              <select id="bargain-language">
+                <option value="hi">हिन्दी</option>
+                <option value="hinglish">Hinglish</option>
+                <option value="en">English</option>
+              </select>
+            </label>
+            <label for="bargain-marketplace">
+              <span>Where you would buy</span>
+              <select id="bargain-marketplace" aria-describedby="bargain-marketplace-note"></select>
+            </label>
+          </div>
+          <button id="bargain-start" type="button">
+            Begin chat
+          </button>
+          <p id="bargain-marketplace-note">
+            One private 30-minute demo session per product. Your three price offers are remembered
+            for 24 hours in this browser.
+          </p>
+        </div>
+        <div id="bargain-conversation" hidden>
+          <div
+            id="bargaining-chat"
+            class="bargaining-chat"
+            role="log"
+            aria-live="polite"
+            aria-relevant="additions"
+          ></div>
+          <div
+            id="bargaining-status"
+            class="bargaining-status"
+            role="status"
+            aria-live="polite"
+          ></div>
+          <form id="bargain-message-form" class="bargain-message-form">
+            <label class="sr-only" for="bargain-message-input">
+              Your offer
+            </label>
+            <div class="bargain-input-wrap">
+              <span aria-hidden="true">₹</span>
+              <input
+                type="text"
+                id="bargain-message-input"
+                placeholder="Try 150, or type in Hindi…"
+                autocomplete="off"
+                maxlength="120"
+                required
+              />
+            </div>
+            <button type="submit" id="bargain-message-submit">
+              Send offer
+            </button>
+          </form>
+          <button id="bargain-accept" class="bargain-accept" type="button" hidden>
+            Accept this demo offer
+          </button>
+          <p class="bargaining-helper">
+            <span id="bargain-attempts">3 offers available</span>
+            <span id="bargain-session-meta">30-minute demo · Hindi</span>
+          </p>
+        </div>
+        <div id="bargaining-coupon" class="bargaining-coupon" hidden>
+          <p>
+            Demo coupon <strong id="coupon-code"></strong>
+          </p>
+          <p>
+            Valid until <span id="coupon-expiry"></span>
+          </p>
+          <button id="coupon-copy-button" type="button">
+            Copy code
+          </button>
+        </div>
+      </section>
+
+      <p id="dialog-description" class="dialog-description"></p>
+      <div id="dialog-colours" class="colour-choices"></div>
+      <p class="colour-note">Illustrative colours; confirm available options on the marketplace.</p>
+      <dl id="dialog-attributes" class="dialog-attributes"></dl>
+
+      <section class="dialog-buy" aria-labelledby="dialog-buy-title">
+        <div class="dialog-buy-heading">
+          <h3 id="dialog-buy-title">Choose where to buy</h3>
+          <span>Payment, delivery, and returns stay with your marketplace</span>
+        </div>
+        <div id="dialog-offers"></div>
+      </section>
+      <Reviews />
+      <Recommendations modal />
+    </div>
+  </div>
+</dialog>

@@ -1,0 +1,212 @@
+---
+import WardrobeLayout from '../layouts/WardrobeLayout.astro';
+import catalogue from '../generated/catalogue.json';
+import taxonomy from '../../data/taxonomy.json';
+import { money, price, type Product } from '../lib/product';
+
+const products = (catalogue.products as Product[]).filter((product) => product.status === 'active');
+const groups = taxonomy.map((category) => ({
+  ...category,
+  products: products.filter((product) => product.category_id === category.id),
+}));
+const assetName: Record<string, string> = {
+  P101: 'caps',
+  P102: 'baby-shawl',
+  P103: 'socks',
+  P104: 'diaper-sets',
+  P105: 'baby-bibs',
+  P106: 'sleeping-mat',
+  P107: 'baby-swaddle',
+};
+const firstProduct = products[0];
+---
+
+<WardrobeLayout>
+  <header class="wardrobe-header">
+    <a class="wardrobe-brand" href="/wardrobe/" aria-label="Shishu care wardrobe home">
+      <span aria-hidden="true">✦</span>
+      <strong>
+        Shishu <i>care</i>
+      </strong>
+    </a>
+    <form class="wardrobe-search" role="search">
+      <label class="wardrobe-sr-only" for="wardrobe-query">
+        Search the wardrobe
+      </label>
+      <span aria-hidden="true">⌕</span>
+      <input
+        id="wardrobe-query"
+        type="search"
+        placeholder="Find a little essential…"
+        autocomplete="off"
+      />
+    </form>
+    <nav aria-label="Wardrobe navigation">
+      <a href="/stage/">Stage view</a>
+      <a href="/">Classic shop</a>
+      <a href="/mannpasand/">
+        ♡ <span>Mannpasand</span>
+      </a>
+    </nav>
+  </header>
+
+  <main id="wardrobe-main">
+    <section class="rail-showroom" aria-label="The little clothing rail">
+      <div class="wardrobe-tabs" aria-label="Wardrobe compartments">
+        <button type="button" class="active" data-wardrobe-filter="all">
+          Everything
+        </button>
+        {groups.map((group) => (
+          <button type="button" data-wardrobe-filter={group.id}>
+            {group.name}
+          </button>
+        ))}
+      </div>
+      <div class="rail-products" id="rail-products">
+        {products.map((product, index) => (
+          <article
+            class:list={['rail-product', { selected: index === 0 }]}
+            data-wardrobe-product={product.product_id}
+            data-wardrobe-group={product.category_id}
+            data-search={`${product.name} ${product.tags.join(' ')}`.toLowerCase()}
+            style={`--item-index:${index}`}
+          >
+            <button
+              type="button"
+              data-wardrobe-open={product.product_id}
+              aria-label={`Select ${product.name}`}
+            >
+              <img
+                src={`/images/wardrobe-v2/${assetName[product.product_id]}.webp`}
+                alt={product.name}
+                draggable="false"
+              />
+              <span>
+                <strong>{product.name}</strong>
+                <small>{money(price(product))}</small>
+              </span>
+            </button>
+          </article>
+        ))}
+      </div>
+      <button class="rail-arrow rail-arrow-left" type="button" aria-label="Move rail left">
+        ‹
+      </button>
+      <button class="rail-arrow rail-arrow-right" type="button" aria-label="Move rail right">
+        ›
+      </button>
+      <aside class="rail-preview" aria-live="polite">
+        <button
+          type="button"
+          class="rail-preview-heart"
+          data-save-product={firstProduct.product_id}
+          aria-label="Save to Mannpasand"
+          aria-pressed="false"
+        >
+          ♡
+        </button>
+        <p id="rail-preview-category">Little essentials</p>
+        <h2 id="rail-preview-name">{firstProduct.name}</h2>
+        <strong id="rail-preview-price">{money(price(firstProduct))}</strong>
+        <p id="rail-preview-copy">{firstProduct.description}</p>
+        <div id="rail-preview-colours" class="rail-preview-colours"></div>
+        <button type="button" id="rail-preview-offer">
+          ₹ Make an offer
+        </button>
+        <button type="button" id="rail-preview-details">
+          Explore details
+        </button>
+        <small>Checkout, payment and delivery stay with your chosen marketplace.</small>
+      </aside>
+      <p class="wardrobe-empty" id="wardrobe-empty" hidden>
+        Nothing on this shelf matches yet. Try another word.
+      </p>
+    </section>
+  </main>
+
+  <dialog id="wardrobe-detail" class="wardrobe-detail" aria-labelledby="wardrobe-detail-title">
+    <button type="button" class="wardrobe-detail-close" aria-label="Close product details">
+      ×
+    </button>
+    <div class="wardrobe-detail-shell">
+      <div class="wardrobe-detail-visual">
+        <span>ILLUSTRATIVE PREVIEW</span>
+        <img id="wardrobe-detail-image" alt="" />
+      </div>
+      <div class="wardrobe-detail-info">
+        <p class="wardrobe-detail-kicker" id="wardrobe-detail-category"></p>
+        <div class="wardrobe-title-row">
+          <h2 id="wardrobe-detail-title"></h2>
+          <button
+            type="button"
+            data-save-product=""
+            aria-label="Save to Mannpasand"
+            aria-pressed="false"
+          >
+            ♡
+          </button>
+        </div>
+        <p class="wardrobe-detail-price" id="wardrobe-detail-price"></p>
+        <p class="wardrobe-price-note">Listed preview price · confirm on marketplace</p>
+        <div class="wardrobe-colours" id="wardrobe-colours" aria-label="Preview colours"></div>
+        <p class="wardrobe-detail-copy" id="wardrobe-detail-copy"></p>
+        <div class="wardrobe-actions">
+          <button type="button" id="wardrobe-bargain-toggle">
+            ₹ Make an offer
+          </button>
+          <a id="wardrobe-direct-link" href="/">
+            View full product page
+          </a>
+        </div>
+        <section class="wardrobe-bargain" id="wardrobe-bargain" hidden>
+          <header>
+            <div>
+              <small>SHISHU CARE ASSISTANT</small>
+              <h3>Let’s find a happy price</h3>
+            </div>
+            <span>Demo only</span>
+          </header>
+          <div id="wardrobe-bargain-setup">
+            <label>
+              Language
+              <select id="wardrobe-language">
+                <option value="hi">हिन्दी</option>
+                <option value="hinglish">Hinglish</option>
+                <option value="en">English</option>
+              </select>
+            </label>
+            <label>
+              Marketplace<select id="wardrobe-marketplace"></select>
+            </label>
+            <button type="button" id="wardrobe-bargain-start">
+              Begin chat
+            </button>
+          </div>
+          <div id="wardrobe-bargain-conversation" hidden>
+            <div id="wardrobe-chat" role="log" aria-live="polite"></div>
+            <form id="wardrobe-offer-form">
+              <label class="wardrobe-sr-only" for="wardrobe-offer">
+                Your price offer
+              </label>
+              <span>₹</span>
+              <input id="wardrobe-offer" maxlength="120" placeholder="Enter your price" required />
+              <button>Send</button>
+            </form>
+            <button type="button" id="wardrobe-accept" hidden>
+              Accept this demo offer
+            </button>
+            <p>
+              <span id="wardrobe-attempts">3 offers available</span>
+              <span id="wardrobe-bargain-status" role="status"></span>
+            </p>
+          </div>
+        </section>
+        <section class="wardrobe-marketplaces">
+          <h3>Choose where to buy</h3>
+          <p>Checkout, payment and delivery happen on the marketplace.</p>
+          <div id="wardrobe-offers"></div>
+        </section>
+      </div>
+    </div>
+  </dialog>
+</WardrobeLayout>

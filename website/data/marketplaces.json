@@ -1,0 +1,9 @@
+[
+  { "id": "meesho", "name": "Meesho", "hosts": ["www.meesho.com", "meesho.com"] },
+  { "id": "amazon", "name": "Amazon", "hosts": ["www.amazon.in", "amazon.in", "amzn.in"] },
+  {
+    "id": "flipkart",
+    "name": "Flipkart",
+    "hosts": ["www.flipkart.com", "flipkart.com", "dl.flipkart.com"]
+  }
+]

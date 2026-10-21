@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../../data/site.json';
+---
+
+<Layout title={`How to buy — ${site.name}`}>
+  <section class="prose">
+    <p class="eyebrow">A SIMPLE WAY TO DISCOVER</p>
+    <h1>
+      Find your favourite.
+      <br />
+      Choose your marketplace.
+    </h1>
+    <ol>
+      <li>
+        <h2>Explore the collection</h2>
+        <p>
+          Browse categories or describe what you want in search. You can include a colour, material,
+          or budget.
+        </p>
+      </li>
+      <li>
+        <h2>Take a closer look</h2>
+        <p>
+          Read product details and compare the listed marketplace options. Prices and availability
+          may change.
+        </p>
+      </li>
+      <li>
+        <h2>Buy where you feel at home</h2>
+        <p>
+          Select a marketplace to open its listing. The marketplace handles checkout, payment,
+          delivery, and returns.
+        </p>
+      </li>
+    </ol>
+    <a class="button" href="/#collection">
+      Explore the collection
+    </a>
+  </section>
+</Layout>

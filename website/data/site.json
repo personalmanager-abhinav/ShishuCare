@@ -1,0 +1,13 @@
+{
+  "name": "Shishu care",
+  "description": "Thoughtful essentials for everyday living. Discover your next favourite and choose where to buy.",
+  "url": "https://example.com",
+  "demo": true,
+  "currency": "INR",
+  "reportingTimezone": "Asia/Kolkata",
+  "theme": "powder-sky",
+  "promotion": {
+    "percent": 10,
+    "code": "MOTHERSBLESSING"
+  }
+}

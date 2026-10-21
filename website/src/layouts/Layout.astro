@@ -1,0 +1,155 @@
+---
+import '../styles/global.css';
+import '../styles/refinement.css';
+import '../styles/palette.css';
+import '../styles/delights.css';
+import '../styles/controls.css';
+import '../styles/community.css';
+import '../styles/brand-entrance.css';
+import '../styles/recommendations.css';
+import '../styles/doodle.css';
+import site from '../../data/site.json';
+import taxonomy from '../../data/taxonomy.json';
+import ProductDialog from '../components/ProductDialog.astro';
+import HeartIcon from '../components/HeartIcon.astro';
+import AmbientParticles from '../components/AmbientParticles.astro';
+import BrandName from '../components/BrandName.astro';
+const { title = site.name, description = site.description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme={site.theme}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, site.url)} />
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/fonts/poppins.css" />
+    <script is:inline>
+      (() => {
+        try {
+          const key = 'shishu-brand-entry-v1';
+          const visited = sessionStorage.getItem(key);
+          sessionStorage.setItem(key, 'seen');
+          const internal =
+            document.referrer && new URL(document.referrer).origin === location.origin;
+          const navigation = performance.getEntriesByType('navigation')[0];
+          if (
+            location.pathname !== '/' ||
+            visited ||
+            internal ||
+            navigation?.type === 'back_forward' ||
+            matchMedia('(prefers-reduced-motion: reduce)').matches
+          )
+            return;
+          document.documentElement.dataset.brandIntro = 'pending';
+          setTimeout(() => {
+            document.documentElement.removeAttribute('data-brand-intro');
+            document.dispatchEvent(new Event('brand:intro-abort'));
+          }, 4000);
+        } catch {
+          /* Storage unavailable: show the homepage immediately. */
+        }
+      })();
+    </script>
+    {site.demo && <meta name="robots" content="noindex,nofollow" />}
+  </head>
+  <body>
+    <a href="#main" class="skip">
+      Skip to content
+    </a>
+    <div class="promotion-bar" aria-label="Special offer">
+      <span>A little love for you</span>
+      <strong>{site.promotion.percent}% off</strong>
+      <span>
+        with code <b class="coupon-code">{site.promotion.code}</b>
+      </span>
+    </div>
+    <header class="site-header">
+      <a class="wordmark" href="/" aria-label={`${site.name} home`}>
+        <span class="brand-symbol" aria-hidden="true">
+          ✳
+        </span>
+        <BrandName />
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="/stage/" aria-current={Astro.url.pathname === '/stage/' ? 'page' : undefined}>
+          Stage view
+        </a>
+        <a
+          href="/wardrobe/"
+          aria-current={Astro.url.pathname === '/wardrobe/' ? 'page' : undefined}
+        >
+          Wardrobe view
+        </a>
+        <a href="/#collection" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>
+          Explore all
+        </a>
+        {taxonomy.map((category) => (
+          <a
+            href={`/categories/${category.id}/`}
+            aria-current={Astro.url.pathname === `/categories/${category.id}/` ? 'page' : undefined}
+          >
+            {category.name}
+          </a>
+        ))}
+      </nav>
+      <div class="header-actions">
+        <a class="mannpasand-link" href="/mannpasand/">
+          <HeartIcon /> Mannpasand
+        </a>
+      </div>
+    </header>
+    <p id="save-status" class="sr-only" role="status"></p>
+    <main id="main">
+      <slot />
+    </main>
+    <ProductDialog />
+    <footer class="ambient-section">
+      <AmbientParticles variant="footer" />
+      <a class="wordmark" href="/">
+        {site.name}
+      </a>
+      <p>A little discovery. An everyday favourite.</p>
+      <div>
+        <a href="/about/">How to buy</a>
+        <a href="/privacy/">Privacy</a>
+        <button class="text-button" id="privacy-settings">
+          Cookie preferences
+        </button>
+      </div>
+      <small>
+        © {new Date().getFullYear()} {site.name}
+      </small>
+    </footer>
+    <section class="consent" id="consent" aria-label="Analytics preferences" hidden>
+      <div>
+        <strong>Your browsing, your choice.</strong>
+        <p>
+          Allow anonymous usage analytics to help us improve discovery? Search and browsing work
+          either way.
+        </p>
+      </div>
+      <div class="consent-actions">
+        <button class="button secondary" id="decline-analytics">
+          No thanks
+        </button>
+        <button class="button" id="allow-analytics">
+          Allow analytics
+        </button>
+      </div>
+    </section>
+    <script>
+      import '../scripts/tracking';
+      import '../scripts/product-dialog';
+      import '../scripts/interactions';
+      import '../scripts/controls';
+      import '../scripts/mannpasand';
+      import '../scripts/reviews';
+      import '../scripts/brand-entrance';
+      import '../scripts/recommendations';
+    </script>
+  </body>
+</html>

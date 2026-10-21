@@ -1,0 +1,106 @@
+---
+import ProductCard from './ProductCard.astro';
+import catalogue from '../generated/catalogue.json';
+import taxonomy from '../../data/taxonomy.json';
+import type { Product } from '../lib/product';
+const { initialCategory = '' } = Astro.props;
+---
+
+<section
+  class="catalogue"
+  id="collection"
+  aria-label="Product collection"
+  data-category-id={initialCategory}
+>
+  <div class="search-band">
+    <form id="search-form" role="search">
+      <label for="query" class="sr-only">
+        Search products
+      </label>
+      <span aria-hidden="true" class="search-icon">
+        ⌕
+      </span>
+      <input
+        id="query"
+        name="q"
+        type="search"
+        maxlength="200"
+        placeholder="Try “pink baby caps”"
+        autocomplete="off"
+      />
+      <button type="submit" class="button">
+        Explore finds <span aria-hidden="true">↗</span>
+      </button>
+      <p id="search-mode">Search by product, colour, material, or budget.</p>
+    </form>
+  </div>
+  <div class="collection-toolbar" id="results-refinement" hidden={!initialCategory}>
+    <p class="refinement-label">Refine your finds</p>
+    <div class="sort-controls">
+      <label for="category-filter" class="sr-only">
+        Category
+      </label>
+      <select id="category-filter">
+        <option value="">Every category</option>
+        {taxonomy.map((t) => (
+          <option value={t.id} selected={t.id === initialCategory}>
+            {t.name}
+          </option>
+        ))}
+      </select>
+      <label for="budget" class="sr-only">
+        Maximum price
+      </label>
+      <select id="budget">
+        <option value="">Any budget</option>
+        <option value="150">Up to ₹150</option>
+        <option value="200">Up to ₹200</option>
+        <option value="500">Up to ₹500</option>
+        <option value="800">Up to ₹800</option>
+        <option value="1000">Up to ₹1,000</option>
+      </select>
+      <label for="sort" class="sr-only">
+        Sort products
+      </label>
+      <select id="sort">
+        <option value="relevance">Recommended order</option>
+        <option value="price-low">Price: low to high</option>
+        <option value="price-high">Price: high to low</option>
+        <option value="newest">Newest first</option>
+      </select>
+    </div>
+  </div>
+  <div class="results-meta">
+    <span id="result-count" role="status">
+      {
+        catalogue.products.filter((p) => !initialCategory || p.category_id === initialCategory)
+          .length
+      }{' '}
+      thoughtful finds
+    </span>
+    <button id="clear-filters" class="text-button" hidden>
+      Clear filters
+    </button>
+  </div>
+  <p id="interpreted" class="interpreted" hidden></p>
+  <div id="product-grid" class="product-grid">
+    {catalogue.products.map((product) => (
+      <ProductCard
+        product={product as Product}
+        hidden={Boolean(initialCategory && product.category_id !== initialCategory)}
+      />
+    ))}
+  </div>
+  <div id="empty" class="empty" hidden>
+    <p class="eyebrow">A LITTLE TOO SPECIFIC?</p>
+    <h2>No finds this time.</h2>
+    <p>Try another word or a wider budget. Your price limit always comes first.</p>
+    <button class="button secondary" id="reset-search">
+      Explore all products
+    </button>
+  </div>
+</section>
+
+<script>
+  import '../scripts/storefront';
+</script>
