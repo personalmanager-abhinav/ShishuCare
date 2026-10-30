@@ -1,0 +1,1 @@
+const e=[{id:"newborn",label:"Newborn · 0–3 months",min:0,max:3},{id:"3-6",label:"3–6 months",min:3,max:6},{id:"6-12",label:"6–12 months",min:6,max:12},{id:"12-24",label:"1–2 years",min:12,max:24}];function s(t,i){if(!i)return!0;const n=e.find(m=>m.id===i),a=t.age_suitability;return!!(n&&a&&a.min_months<=n.min&&a.max_months>=n.max)}export{e as a,s as m};
