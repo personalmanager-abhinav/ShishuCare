@@ -3,8 +3,9 @@
 ## Public GitHub Pages preview
 
 The public storefront preview is hosted at https://personalmanager-abhinav.github.io/.
-`.github/workflows/pages.yml` builds `website/dist` and publishes it on pushes to the remote
-`main` branch. This static preview retains demo labels and production-content guards; it does
+The source is on `main`; the built `website/dist` output is published separately to the
+`gh-pages` branch. Rebuild with `PUBLIC_STATIC_PREVIEW=true` before publishing updates.
+This static preview retains demo labels and production-content guards; it does
 not deploy the Cloudflare Worker or provide bargaining, reviews, analytics collection or owner APIs.
 Search uses its existing browser fallback and favourites remain browser-local.
 
