@@ -14,4 +14,5 @@ export interface Env {
   MONITOR_TOKEN?: string;
   BARGAIN_MODE?: string;
   BARGAIN_PUBLIC_ENABLED?: string;
+  BARGAIN_RETENTION_DAYS?: string;
 }

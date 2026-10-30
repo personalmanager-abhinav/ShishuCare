@@ -5,6 +5,7 @@ import ColourChoices from '../../components/ColourChoices.astro';
 import SaveButton from '../../components/SaveButton.astro';
 import Reviews from '../../components/Reviews.astro';
 import Recommendations from '../../components/Recommendations.astro';
+import ProductGuidance from '../../components/ProductGuidance.astro';
 import Layout from '../../layouts/Layout.astro';
 import catalogue from '../../generated/catalogue.json';
 import marketplaces from '../../../data/marketplaces.json';
@@ -112,6 +113,7 @@ const { product } = Astro.props as { product: Product };
           </small>
         </div>
         <Reviews id={product.product_id} />
+        <ProductGuidance product={product} />
         <Recommendations productId={product.product_id} />
       </div>
     </div>

@@ -40,6 +40,7 @@ const shared = {
     OWNER_EMAIL: input.OWNER_EMAIL,
     BARGAIN_MODE: 'disabled',
     BARGAIN_PUBLIC_ENABLED: 'false',
+    BARGAIN_RETENTION_DAYS: '30',
   },
 };
 for (const [name, main, domain, crons] of [

@@ -68,10 +68,20 @@ interface CampaignRow {
 }
 
 interface TurnRow {
+  speaker?: string;
   text_redacted: string | null;
   extracted_buyer_offer_minor: number | null;
   quoted_seller_offer_minor: number | null;
   decision: string | null;
+  created_at?: string;
+}
+
+interface PublicTurn {
+  speaker: 'customer' | 'assistant';
+  message: string | null;
+  amountMinor: number | null;
+  decision: string | null;
+  createdAt: string;
 }
 
 function cookie(request: Request, name: string) {
@@ -136,10 +146,32 @@ async function configuration(
   return { campaign, policy };
 }
 
+async function sessionHistory(env: Env, sessionId: string): Promise<PublicTurn[]> {
+  const turns = await env.DB.prepare(
+    `SELECT speaker,text_redacted,extracted_buyer_offer_minor,quoted_seller_offer_minor,decision,created_at
+     FROM bargain_turn WHERE session_id=? AND speaker IN ('customer','assistant')
+     ORDER BY created_at,turn_id LIMIT 24`,
+  )
+    .bind(sessionId)
+    .all<TurnRow>();
+  return turns.results.map((turn) => ({
+    speaker: turn.speaker as 'customer' | 'assistant',
+    message: turn.speaker === 'assistant' ? turn.text_redacted : null,
+    amountMinor:
+      turn.speaker === 'customer'
+        ? turn.extracted_buyer_offer_minor
+        : turn.quoted_seller_offer_minor,
+    decision: turn.decision,
+    createdAt: turn.created_at || '',
+  }));
+}
+
 function state(
   session: SessionRow,
   assistantMessage?: string | null,
   sellerOfferMinor?: number | null,
+  history: PublicTurn[] = [],
+  resumed = false,
 ) {
   return {
     sessionId: session.session_id,
@@ -147,6 +179,10 @@ function state(
     attemptsUsed: session.attempts_used,
     attemptsRemaining: safeAttemptsRemaining(session.attempts_used),
     language: session.preferred_language,
+    productId: session.product_id,
+    variantId: session.variant_id,
+    marketplaceId: session.marketplace_id,
+    marketplaceOfferId: session.marketplace_offer_id,
     expiresAt: session.expires_at,
     assistantMessage: assistantMessage || null,
     offer:
@@ -155,6 +191,8 @@ function state(
         : { amountMinor: sellerOfferMinor, currency: 'INR', redeemable: false, mode: 'demo' },
     coupon: null,
     demo: true,
+    resumed,
+    history,
   };
 }
 
@@ -246,7 +284,10 @@ async function createSession(request: Request, env: Env) {
     .first()) as { session_id: string } | null;
   if (existingKey) {
     const existing = await ownedSession(request, env, existingKey.session_id);
-    return existing ? json(state(existing)) : json({ error: 'Session not found' }, 404);
+    if (!existing) return json({ error: 'Session not found' }, 404);
+    const history = await sessionHistory(env, existing.session_id);
+    const latest = history.filter((turn) => turn.speaker === 'assistant').at(-1);
+    return json(state(existing, latest?.message, latest?.amountMinor, history, true));
   }
 
   const browser = await scopeFor(request, env, true);
@@ -263,8 +304,10 @@ async function createSession(request: Request, env: Env) {
     )
       .bind(idempotencyKey, recent.session_id, new Date().toISOString())
       .run();
+    const history = await sessionHistory(env, current.session_id);
+    const latest = history.filter((turn) => turn.speaker === 'assistant').at(-1);
     return json(
-      state(current),
+      state(current, latest?.message, latest?.amountMinor, history, true),
       200,
       browser.setCookie ? { 'Set-Cookie': browser.setCookie } : undefined,
     );
@@ -287,6 +330,7 @@ async function createSession(request: Request, env: Env) {
     last_activity_at: now.toISOString(),
     preferred_language: language,
   };
+  const welcome = bargainWelcome(language);
   await env.DB.batch([
     env.DB.prepare(
       `INSERT INTO bargain_session
@@ -296,10 +340,27 @@ async function createSession(request: Request, env: Env) {
     env.DB.prepare(
       'INSERT INTO bargain_session_idempotency(idempotency_key,session_id,created_at) VALUES(?,?,?)',
     ).bind(idempotencyKey, session.session_id, now.toISOString()),
+    env.DB.prepare(
+      `INSERT INTO bargain_turn(turn_id,session_id,idempotency_key,speaker,text_redacted,extracted_buyer_offer_minor,quoted_seller_offer_minor,decision,model_provider,model_id,prompt_version,created_at)
+       VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`,
+    ).bind(
+      `turn_${crypto.randomUUID()}`,
+      session.session_id,
+      `${idempotencyKey}:welcome`,
+      'assistant',
+      welcome,
+      null,
+      null,
+      'welcome',
+      'none',
+      'deterministic-demo',
+      'bargain-v2',
+      now.toISOString(),
+    ),
   ]);
-  const welcome = bargainWelcome(language);
+  const history = await sessionHistory(env, session.session_id);
   return json(
-    state(session, welcome),
+    state(session, welcome, null, history),
     201,
     browser.setCookie ? { 'Set-Cookie': browser.setCookie } : undefined,
   );
@@ -314,7 +375,10 @@ async function getSession(request: Request, env: Env, sessionId: string) {
   )
     .bind(sessionId)
     .first()) as TurnRow | null;
-  return json(state(session, latest?.text_redacted, latest?.quoted_seller_offer_minor));
+  const history = await sessionHistory(env, sessionId);
+  return json(
+    state(session, latest?.text_redacted, latest?.quoted_seller_offer_minor, history, true),
+  );
 }
 
 async function message(request: Request, env: Env, sessionId: string) {
@@ -338,7 +402,15 @@ async function message(request: Request, env: Env, sessionId: string) {
     .bind(sessionId, `${idempotencyKey}:assistant`)
     .first()) as TurnRow | null;
   if (duplicate)
-    return json(state(session, duplicate.text_redacted, duplicate.quoted_seller_offer_minor));
+    return json(
+      state(
+        session,
+        duplicate.text_redacted,
+        duplicate.quoted_seller_offer_minor,
+        await sessionHistory(env, sessionId),
+        true,
+      ),
+    );
 
   const count = (await env.DB.prepare(
     "SELECT COUNT(*) count FROM bargain_turn WHERE session_id=? AND speaker='customer'",
@@ -442,6 +514,7 @@ async function message(request: Request, env: Env, sessionId: string) {
       { ...session, attempts_used: attemptsUsed, status: newStatus, last_activity_at: now },
       reply.message,
       reply.sellerOfferMinor,
+      await sessionHistory(env, sessionId),
     ),
   );
 }
@@ -450,7 +523,8 @@ async function accept(request: Request, env: Env, sessionId: string) {
   const owned = await ownedSession(request, env, sessionId);
   const session = owned ? await expireIfNeeded(env, owned) : null;
   if (!session) return json({ error: 'Session not found' }, 404);
-  if (session.status === 'accepted_demo') return json(state(session));
+  if (session.status === 'accepted_demo')
+    return json(state(session, null, null, await sessionHistory(env, sessionId), true));
   if (session.status !== 'active') return json({ error: 'This bargaining session has ended' }, 409);
   const body = await input(request);
   const idempotencyKey = typeof body?.idempotencyKey === 'string' ? body.idempotencyKey : '';
@@ -464,6 +538,10 @@ async function accept(request: Request, env: Env, sessionId: string) {
   if (!latest?.quoted_seller_offer_minor)
     return json({ error: 'There is no current demo offer to accept' }, 409);
   const now = new Date().toISOString();
+  const confirmation = bargainAcceptance(
+    session.preferred_language,
+    latest.quoted_seller_offer_minor,
+  );
   await env.DB.batch([
     env.DB.prepare(
       'INSERT OR IGNORE INTO bargain_acceptance_idempotency(idempotency_key,session_id,created_at) VALUES(?,?,?)',
@@ -471,13 +549,31 @@ async function accept(request: Request, env: Env, sessionId: string) {
     env.DB.prepare(
       "UPDATE bargain_session SET status='accepted_demo',last_activity_at=? WHERE session_id=? AND status='active'",
     ).bind(now, sessionId),
+    env.DB.prepare(
+      `INSERT OR IGNORE INTO bargain_turn(turn_id,session_id,idempotency_key,speaker,text_redacted,extracted_buyer_offer_minor,quoted_seller_offer_minor,decision,model_provider,model_id,prompt_version,created_at)
+       VALUES(?,?,?,?,?,?,?,?,?,?,?,?)`,
+    ).bind(
+      `turn_${crypto.randomUUID()}`,
+      sessionId,
+      `${idempotencyKey}:assistant`,
+      'assistant',
+      confirmation,
+      null,
+      latest.quoted_seller_offer_minor,
+      'accepted_demo',
+      'none',
+      'deterministic-demo',
+      'bargain-v2',
+      now,
+    ),
   ]);
-  const confirmation = bargainAcceptance(
-    session.preferred_language,
-    latest.quoted_seller_offer_minor,
-  );
   return json(
-    state({ ...session, status: 'accepted_demo' }, confirmation, latest.quoted_seller_offer_minor),
+    state(
+      { ...session, status: 'accepted_demo' },
+      confirmation,
+      latest.quoted_seller_offer_minor,
+      await sessionHistory(env, sessionId),
+    ),
   );
 }
 
@@ -540,6 +636,12 @@ export async function handleBargainAdmin(request: Request, env: Env): Promise<Re
   ]);
   return json({
     demo: true,
+    generatedAt: new Date().toISOString(),
+    configuration: {
+      mode: env.BARGAIN_MODE || 'disabled',
+      publicEnabled: env.BARGAIN_PUBLIC_ENABLED === 'true',
+      retentionDays: Number(env.BARGAIN_RETENTION_DAYS || 30),
+    },
     summary,
     policies: policies.results,
     campaigns: campaigns.results,

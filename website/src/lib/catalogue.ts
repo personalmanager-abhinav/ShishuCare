@@ -38,6 +38,30 @@ export const productSchema = z
     category_id: z.string().refine((id) => taxonomy.some((t) => t.id === id)),
     status: z.enum(['active', 'draft', 'archived']),
     demo: z.boolean(),
+    age_suitability: z.object({
+      min_months: z.number().int().min(0).max(216),
+      max_months: z.number().int().min(1).max(216),
+      source: z.string().trim().min(5).max(300),
+      verified_at: z.iso.datetime(),
+      notes: z.string().trim().max(500).optional(),
+    }).strict().refine((value) => value.max_months > value.min_months, {
+      message: 'Age suitability must have an increasing verified range',
+    }).optional(),
+    product_guidance: z.object({
+      source: z.string().trim().min(5).max(300),
+      verified_at: z.iso.datetime(),
+      composition: z.string().trim().min(3).max(500).optional(),
+      origin: z.string().trim().min(2).max(100).optional(),
+      care: z.array(z.string().trim().min(3).max(300)).max(12).optional(),
+      safety: z.array(z.string().trim().min(3).max(500)).max(12).optional(),
+      certifications: z.array(z.object({ name: z.string().trim().min(3).max(100), reference: z.string().trim().min(3).max(200) }).strict()).max(10).optional(),
+      sizes: z.array(z.object({
+        label: z.string().trim().min(1).max(50),
+        measurement: z.string().trim().min(3).max(100),
+        min_cm: z.number().positive().max(300),
+        max_cm: z.number().positive().max(300),
+      }).strict().refine(value=>value.max_cm>=value.min_cm,{message:'Size range must be increasing'})).max(30).optional(),
+    }).strict().optional(),
     images: z.array(
       z
         .object({ src: z.string().regex(/^\/images\/[a-zA-Z0-9_.-]+$/), alt: z.string().min(5) })

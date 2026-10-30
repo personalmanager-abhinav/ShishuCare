@@ -3,11 +3,13 @@ import { search, type Filters } from '../lib/search';
 import { price, type Product } from '../lib/product';
 import { track } from './tracking';
 import { normalizeQuery } from '../lib/query-normalization';
+import { matchesAgeStage, ageStages } from '../lib/age-stage';
 const products = catalogue.products as Product[];
 const form = document.querySelector<HTMLFormElement>('#search-form')!;
 const input = document.querySelector<HTMLInputElement>('#query')!;
 const budget = document.querySelector<HTMLSelectElement>('#budget')!;
 const sort = document.querySelector<HTMLSelectElement>('#sort')!;
+const ageStage = document.querySelector<HTMLSelectElement>('#age-stage')!;
 const grid = document.querySelector<HTMLElement>('#product-grid')!;
 const cards = new Map(
   [...grid.querySelectorAll<HTMLElement>('[data-product]')].map((card) => [
@@ -24,14 +26,11 @@ let ordered = products;
 let requestId = 0;
 const queryParams = new URLSearchParams(location.search);
 input.value = queryParams.get('q') || '';
+ageStage.value = ageStages.some((stage) => stage.id === queryParams.get('age'))
+  ? queryParams.get('age')! : '';
 function render(list: Product[], filters: Filters) {
-  document.querySelector<HTMLElement>('#results-refinement')!.hidden = !(
-    input.value.trim() ||
-    category ||
-    budget.value ||
-    initialCategory
-  );
-  ordered = [...list];
+  document.querySelector<HTMLElement>('#results-refinement')!.hidden = false;
+  ordered = list.filter((product) => matchesAgeStage(product, ageStage.value));
   if (sort.value === 'price-low')
     ordered.sort((a, b) => (price(a) ?? Infinity) - (price(b) ?? Infinity));
   if (sort.value === 'price-high') ordered.sort((a, b) => (price(b) ?? -1) - (price(a) ?? -1));
@@ -69,7 +68,7 @@ function render(list: Product[], filters: Filters) {
     `${ordered.length} ${ordered.length === 1 ? 'find' : 'finds'}${input.value.trim() ? ` for “${input.value.trim()}”` : ''}`;
   (document.querySelector('#empty') as HTMLElement).hidden = ordered.length > 0;
   (document.querySelector('#clear-filters') as HTMLElement).hidden =
-    !input.value && !category && !budget.value;
+    !input.value && !category && !budget.value && !ageStage.value;
   const interpreted = document.querySelector<HTMLElement>('#interpreted')!;
   const labels = Object.entries(filters)
     .filter(([key, value]) => value !== undefined && key !== 'maxExclusive')
@@ -134,6 +133,7 @@ async function run() {
   if (normalizeQuery(q) !== q) mode.textContent += ` Interpreted as “${normalizeQuery(q)}”.`;
   const params = new URLSearchParams();
   if (q) params.set('q', q);
+  if (ageStage.value) params.set('age', ageStage.value);
   history.replaceState(
     null,
     '',
@@ -164,6 +164,7 @@ budget.addEventListener('change', () => {
   track('filter_usage', { filter: 'budget', value: budget.value || 'any' });
   void run();
 });
+ageStage.addEventListener('change', () => void run());
 sort.addEventListener('change', () => {
   track('sort_usage', { sort: sort.value });
   void run();
@@ -172,6 +173,7 @@ function reset() {
   input.value = '';
   budget.value = '';
   sort.value = 'relevance';
+  ageStage.value = '';
   document.dispatchEvent(new Event('choices:sync'));
   category = initialCategory;
   categorySelect.value = category;
@@ -191,4 +193,4 @@ document.addEventListener('product:open', (event) => {
     );
 });
 // Let shared colour handlers initialize before rendering attribute-aware results.
-if (input.value || category) queueMicrotask(() => void run());
+if (input.value || category || ageStage.value) queueMicrotask(() => void run());

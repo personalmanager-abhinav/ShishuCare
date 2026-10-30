@@ -1,5 +1,15 @@
 # Verification record
 
+## Bargaining completion pass — 28 October 2026
+
+- Added resumable sanitized history without returning customer message text, explicit original-marketplace context for product-wide attempt reuse, persisted welcome/acceptance turns and browser-safe language preferences.
+- Added eight-second request bounds with idempotent network retry, disabled controls while requests are pending, animated waiting/message states, clearer resumed-session feedback and boutique-aligned bargaining visuals.
+- Added provisional configurable demo retention (`BARGAIN_RETENTION_DAYS`, 30 days locally), scheduled deletion of old demo sessions and dependent turns/idempotency records, and migration `0008_bargain_retention.sql` indexes. The retention SQL was prepared successfully against local D1.
+- Added the authenticated read-only `/internal/bargain` operations page. It reports configuration, aggregate demo outcomes, policies, campaigns and recent sessions without exposing browser hashes or customer text.
+- `pnpm run check` passed with zero diagnostics; all 76 unit/contract tests passed; the static production build generated 17 pages. All migrations through `0008` applied to local D1.
+- The Worker-backed `tests/bargain-browser.mjs` Chrome journey passed starting an English/Amazon table, receiving a counter, closing/reopening, restoring sanitized history and Amazon context, and confirming that no coupon is exposed.
+- Production remains deliberately disabled. Real pricing approval, seller-account redemption verification, encrypted coupon operations, legal wording, production infrastructure and an approved AI/deterministic pilot decision remain external acceptance gates.
+
 ## Bargaining interface refinement — 13 October 2026
 
 - Replaced the duplicated bargaining product/gallery view with one expandable conversation card inside the existing product-detail column.

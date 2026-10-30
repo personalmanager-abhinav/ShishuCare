@@ -16,6 +16,7 @@ import { recommendationInput, recommendations, validRecommendationEvent } from '
 import { discoveryInsights, inventoryReport, importInventory } from './insights';
 import { insightsHtml } from './insights-page';
 import { handleBargain, handleBargainAdmin } from './bargain';
+import { bargainDashboardHtml } from './bargain-page';
 const queryCache = new QueryVectorCache();
 const json = (value: unknown, status = 200) =>
   new Response(JSON.stringify(value), {
@@ -148,6 +149,15 @@ async function handle(request: Request, env: Env): Promise<Response> {
       return json(health, health.status === 'ok' ? 200 : 503);
     }
     if (path === '/internal/api/bargain') return handleBargainAdmin(request, env);
+    if (path === '/internal/bargain' || path === '/internal/bargain/')
+      return new Response(bargainDashboardHtml, {
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'no-store',
+          'Content-Security-Policy':
+            "default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; font-src 'self'; frame-ancestors 'none'",
+        },
+      });
     if (path === '/internal/' || path === '/internal')
       return new Response(dashboardHtml, {
         headers: {

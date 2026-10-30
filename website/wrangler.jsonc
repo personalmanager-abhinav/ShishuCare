@@ -27,6 +27,7 @@
     "OWNER_EMAIL": "",
     "BARGAIN_MODE": "demo",
     "BARGAIN_PUBLIC_ENABLED": "true",
+    "BARGAIN_RETENTION_DAYS": "30",
   },
   "triggers": { "crons": ["15 * * * *"] },
   "observability": { "enabled": false },

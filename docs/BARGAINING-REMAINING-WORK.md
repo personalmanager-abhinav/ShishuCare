@@ -1,12 +1,14 @@
 # Bargaining system — remaining work and production gates
 
-Updated: 13 October 2026.
+Updated: 28 October 2026.
 
 This is the authoritative checklist for work that remains after completing the persistent local bargaining demo. The current implementation is intentionally non-redeemable and production-disabled. The detailed design rationale remains in `Shishu_Care_AI_Bargaining_Implementation_Plan(1).md`.
 
 ## Current safe boundary
 
-The application supports a D1-backed demo conversation with marketplace and language selection, an opaque browser-scoped session, three distinct price offers, conservative amount parsing, floor-safe deterministic counters, idempotent requests, explicit demo acceptance, consent-controlled analytics, history deletion and an authenticated owner report.
+The application supports a D1-backed demo conversation with marketplace and language selection, an opaque browser-scoped session, three distinct price offers, conservative amount parsing, floor-safe deterministic counters, idempotent requests, explicit demo acceptance, consent-controlled analytics, history deletion and an authenticated owner report. Sanitized conversation history can be resumed across tabs without retaining customer message text; the original marketplace context is shown when product-wide attempts resume. Network calls have bounded timeouts and safe retries. The authenticated owner dashboard now links to a read-only bargaining operations page.
+
+Local demo records have a provisional, configurable 30-day purge (`BARGAIN_RETENTION_DAYS`) performed by scheduled maintenance. This bounds development data but is not the owner/legal approval of production retention requested below. Migration `0008_bargain_retention.sql` adds the supporting indexes.
 
 The demo does **not** issue a coupon, promise a marketplace checkout price, call a production AI model, or represent an order or sale. Generated production configuration disables the feature.
 
@@ -58,7 +60,7 @@ Do not activate these tables or flows with real codes until marketplace validati
 ## Privacy, abuse and operations
 
 - Obtain legal review for the actual audience and jurisdiction; current retention text is a proposal, not a legal determination.
-- Decide the retention period for sanitized turns and essential anti-abuse state. Add scheduled expiry/purge after approval.
+- Approve or change the provisional 30-day retention period for sanitized turns and essential anti-abuse state before any pilot. Scheduled demo purge is implemented, but the duration remains an owner/legal decision.
 - Confirm whether bargaining lifecycle analytics require separate disclosure or consent wording.
 - Configure Cloudflare rate-limiting/bot controls and monitor bypass behavior across browsers/incognito sessions.
 - Add production alerts for error rate, latency, expired campaigns, exhausted code pools, floor-policy failures and unusual attempt volume.

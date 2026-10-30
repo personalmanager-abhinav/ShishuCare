@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ageStages } from '../lib/age-stage';
+---
+<Layout title="Shop by age — Shishu care">
+  <section class="prose">
+    <h1>Little stages. Thoughtful choices.</h1>
+    <p>Browse products whose verified age range covers your selected stage. Age is a starting point, not a guarantee of fit or suitability; always check measurements and the manufacturer's instructions.</p>
+    <div class="age-stage-links">
+      {ageStages.map((stage) => <a class="button" href={`/?age=${stage.id}#collection`}>{stage.label} →</a>)}
+    </div>
+    <h2>Premature or low-birth-weight babies</h2>
+    <p>We do not infer specialist suitability from size or age. Ask your baby's healthcare professional about individual needs, and confirm product-specific suitability with the manufacturer. Our current preview catalogue has no verified specialist recommendations.</p>
+    <p>The current demo catalogue has not yet been age-verified. Filtered collections may be empty until verified product information is supplied.</p>
+  </section>
+</Layout>
+<style>.age-stage-links{display:flex;flex-wrap:wrap;gap:16px;margin:30px 0}</style>

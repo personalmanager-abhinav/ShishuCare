@@ -38,6 +38,14 @@ async function processDeletions(env: Env) {
   }
 }
 export async function runJobs(env: Env) {
+  const configuredBargainRetention = Number(env.BARGAIN_RETENTION_DAYS || 30);
+  const bargainRetentionDays = Number.isInteger(configuredBargainRetention)
+    ? Math.min(90, Math.max(1, configuredBargainRetention))
+    : 30;
+  const bargainCutoff = ago(bargainRetentionDays);
+  const expiredDemoSessions = `SELECT s.session_id FROM bargain_session s
+    JOIN bargain_campaign c ON c.marketplace_offer_id=s.marketplace_offer_id
+    WHERE c.discount_kind='demo' AND s.created_at<?`;
   // Export partitions older than the 3-day late-arrival window before hot-data cleanup.
   const days = await env.DB.prepare(
     'SELECT DISTINCT substr(received_at,1,10) day FROM events WHERE received_at<? AND substr(received_at,1,10) NOT IN (SELECT day FROM archive_manifest) ORDER BY day LIMIT 4',
@@ -83,6 +91,18 @@ export async function runJobs(env: Env) {
     ).bind(ago(30)),
     env.DB.prepare('DELETE FROM visitors WHERE expires_at<?').bind(ago(0)),
     env.DB.prepare('DELETE FROM counters WHERE expires_at<?').bind(ago(0)),
+    env.DB.prepare(`DELETE FROM bargain_turn WHERE session_id IN (${expiredDemoSessions})`).bind(
+      bargainCutoff,
+    ),
+    env.DB.prepare(
+      `DELETE FROM bargain_acceptance_idempotency WHERE session_id IN (${expiredDemoSessions})`,
+    ).bind(bargainCutoff),
+    env.DB.prepare(
+      `DELETE FROM bargain_session_idempotency WHERE session_id IN (${expiredDemoSessions})`,
+    ).bind(bargainCutoff),
+    env.DB.prepare(`DELETE FROM bargain_session WHERE session_id IN (${expiredDemoSessions})`).bind(
+      bargainCutoff,
+    ),
     env.DB.prepare(
       'DELETE FROM recommendation_sets WHERE created_at<? OR visitor_id IN (SELECT visitor_id FROM deletion_requests)',
     ).bind(ago(3)),

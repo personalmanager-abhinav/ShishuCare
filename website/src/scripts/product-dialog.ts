@@ -22,6 +22,27 @@ let scrollY = 0;
 let pointerStart: { x: number; y: number } | null = null;
 let bargainSessionId: string | null = null;
 
+interface BargainHistoryTurn {
+  speaker: 'customer' | 'assistant';
+  message: string | null;
+  amountMinor: number | null;
+}
+
+interface BargainState {
+  sessionId: string;
+  state: string;
+  attemptsRemaining: number;
+  language: string;
+  marketplaceId: string;
+  marketplaceOfferId: string;
+  expiresAt?: string;
+  assistantMessage?: string | null;
+  offer?: { amountMinor: number } | null;
+  history?: BargainHistoryTurn[];
+  resumed?: boolean;
+  error?: string;
+}
+
 const bargainButton = dialog.querySelector<HTMLButtonElement>('#bargain-button')!;
 const bargainPanel = dialog.querySelector<HTMLElement>('#bargaining-panel')!;
 const bargainChat = dialog.querySelector<HTMLElement>('#bargaining-chat')!;
@@ -36,9 +57,11 @@ const bargainLanguage = dialog.querySelector<HTMLSelectElement>('#bargain-langua
 const bargainStart = dialog.querySelector<HTMLButtonElement>('#bargain-start')!;
 const bargainAccept = dialog.querySelector<HTMLButtonElement>('#bargain-accept')!;
 
-function setBargainStatus(message = '', error = false) {
+function setBargainStatus(message = '', error = false, waiting = false) {
   bargainStatus.textContent = message;
   bargainStatus.classList.toggle('error', error);
+  bargainStatus.classList.toggle('waiting', waiting);
+  bargainPanel.setAttribute('aria-busy', String(waiting));
 }
 
 function addBargainMessage(message: string, customer = false) {
@@ -47,6 +70,53 @@ function addBargainMessage(message: string, customer = false) {
   bubble.textContent = message;
   bargainChat.append(bubble);
   bargainChat.scrollTop = bargainChat.scrollHeight;
+}
+
+function renderBargainHistory(history: BargainHistoryTurn[] = []) {
+  bargainChat.replaceChildren();
+  for (const turn of history) {
+    if (turn.speaker === 'assistant' && turn.message) addBargainMessage(turn.message);
+    if (turn.speaker === 'customer')
+      addBargainMessage(
+        turn.amountMinor == null
+          ? 'Message sent · text was not stored'
+          : `₹${turn.amountMinor / 100}`,
+        true,
+      );
+  }
+}
+
+function savedLanguage() {
+  try {
+    const value = localStorage.getItem('shishu-bargain-language');
+    return ['hi', 'hinglish', 'en'].includes(value || '') ? value! : 'hi';
+  } catch {
+    return 'hi';
+  }
+}
+
+function saveLanguage(language: string) {
+  try {
+    localStorage.setItem('shishu-bargain-language', language);
+  } catch {
+    // Storage is optional; the selected language still applies to this session.
+  }
+}
+
+async function bargainRequest(url: string, init?: RequestInit) {
+  let lastError: unknown;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    try {
+      return await fetch(url, { ...init, signal: AbortSignal.timeout(8000) });
+    } catch (error) {
+      lastError = error;
+    }
+  }
+  throw new Error(
+    lastError instanceof DOMException && lastError.name === 'TimeoutError'
+      ? 'The bargaining table took too long to respond. Please try again.'
+      : 'The bargaining table could not be reached. Please check your connection and try again.',
+  );
 }
 
 function updateBargainAttempts(remaining?: number) {
@@ -76,7 +146,9 @@ function resetBargaining() {
   bargainSetup.hidden = false;
   bargainConversation.hidden = true;
   bargainMarketplace.replaceChildren();
-  bargainLanguage.value = localStorage.getItem('shishu-bargain-language') || 'hi';
+  bargainLanguage.value = savedLanguage();
+  bargainLanguage.disabled = false;
+  bargainMarketplace.disabled = false;
   bargainStart.disabled = false;
   bargainAccept.hidden = true;
   bargainChat.replaceChildren();
@@ -119,17 +191,19 @@ async function startBargaining() {
     return;
   }
   const language = bargainLanguage.value;
-  localStorage.setItem('shishu-bargain-language', language);
+  saveLanguage(language);
   bargainConversation.hidden = false;
   bargainStart.disabled = true;
-  setBargainStatus('Opening your private bargaining table…');
+  bargainInput.disabled = true;
+  bargainSubmit.disabled = true;
+  setBargainStatus('Opening your private bargaining table', false, true);
   bargainPanel.scrollIntoView({
     block: 'nearest',
     behavior: reduceMotion.matches ? 'auto' : 'smooth',
   });
 
   try {
-    const eligibilityResponse = await fetch('/api/bargain/eligibility', {
+    const eligibilityResponse = await bargainRequest('/api/bargain/eligibility', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -143,7 +217,7 @@ async function startBargaining() {
     if (!eligibilityResponse.ok || !eligibility.eligible)
       throw new Error(eligibility.reason || eligibility.error || 'Bargaining is unavailable.');
 
-    const response = await fetch('/api/bargain/sessions', {
+    const response = await bargainRequest('/api/bargain/sessions', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -155,11 +229,14 @@ async function startBargaining() {
         idempotencyKey: crypto.randomUUID(),
       }),
     });
-    const session = await response.json();
+    const session = (await response.json()) as BargainState;
     if (!response.ok || !session.sessionId)
       throw new Error(session.error || 'The bargaining table could not be opened.');
     bargainSessionId = session.sessionId;
     bargainLanguage.value = session.language || language;
+    bargainLanguage.disabled = true;
+    bargainMarketplace.value = session.marketplaceOfferId || offer.offer_id;
+    bargainMarketplace.disabled = true;
     bargainSetup.hidden = true;
     track(
       'bargain_started',
@@ -168,24 +245,38 @@ async function startBargaining() {
         attempts_remaining: session.attemptsRemaining,
         mode: 'demo',
       },
-      { product_id: selected.product_id, marketplace_id: offer.marketplace_id },
+      {
+        product_id: selected.product_id,
+        marketplace_id: session.marketplaceId || offer.marketplace_id,
+      },
     );
-    addBargainMessage(
-      session.assistantMessage ||
-        (session.state === 'active'
-          ? 'नमस्ते! बताइए, आपने क्या बजट सोचा है?'
-          : 'इस उत्पाद के लिए आपकी हाल की डेमो बातचीत पूरी हो चुकी है।'),
-    );
+    if (session.history?.length) renderBargainHistory(session.history);
+    else
+      addBargainMessage(
+        session.assistantMessage ||
+          (session.state === 'active'
+            ? 'नमस्ते! बताइए, आपने क्या बजट सोचा है?'
+            : 'इस उत्पाद के लिए आपकी हाल की डेमो बातचीत पूरी हो चुकी है।'),
+      );
     updateBargainAttempts(session.attemptsRemaining);
     updateBargainMeta(session.language || language, session.expiresAt);
-    setBargainStatus();
-    if (session.state === 'active') bargainInput.focus();
-    else {
+    setBargainStatus(
+      session.resumed
+        ? `Resumed your ${marketplaces.find((market) => market.id === session.marketplaceId)?.name || 'marketplace'} demo table.`
+        : '',
+    );
+    bargainAccept.hidden = !(session.state === 'active' && session.offer?.amountMinor);
+    if (session.state === 'active') {
+      bargainInput.disabled = false;
+      bargainSubmit.disabled = false;
+      bargainInput.focus();
+    } else {
       bargainInput.disabled = true;
       bargainSubmit.disabled = true;
       bargainInput.placeholder = 'This demo conversation has ended';
     }
   } catch (error) {
+    bargainConversation.hidden = true;
     setBargainStatus(
       error instanceof Error ? error.message : 'The bargaining table could not be opened.',
       true,
@@ -408,9 +499,9 @@ bargainForm.addEventListener('submit', async (event) => {
   bargainInput.value = '';
   bargainInput.disabled = true;
   bargainSubmit.disabled = true;
-  setBargainStatus('Thinking about your offer…');
+  setBargainStatus('Thinking about your offer', false, true);
   try {
-    const response = await fetch(`/api/bargain/sessions/${bargainSessionId}/messages`, {
+    const response = await bargainRequest(`/api/bargain/sessions/${bargainSessionId}/messages`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message, idempotencyKey: crypto.randomUUID() }),
@@ -471,9 +562,9 @@ bargainForm.addEventListener('submit', async (event) => {
 bargainAccept.addEventListener('click', async () => {
   if (!bargainSessionId) return;
   bargainAccept.disabled = true;
-  setBargainStatus('Confirming the demo offer…');
+  setBargainStatus('Confirming the demo offer', false, true);
   try {
-    const response = await fetch(`/api/bargain/sessions/${bargainSessionId}/accept`, {
+    const response = await bargainRequest(`/api/bargain/sessions/${bargainSessionId}/accept`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ idempotencyKey: crypto.randomUUID() }),

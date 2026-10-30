@@ -1,5 +1,41 @@
 # Marketplace catalogue
 
+## Public GitHub Pages preview
+
+The public storefront preview is hosted at https://personalmanager-abhinav.github.io/.
+`.github/workflows/pages.yml` builds `website/dist` and publishes it on pushes to the remote
+`main` branch. This static preview retains demo labels and production-content guards; it does
+not deploy the Cloudflare Worker or provide bargaining, reviews, analytics collection or owner APIs.
+Search uses its existing browser fallback and favourites remain browser-local.
+
+## Age-stage discovery and gift finder
+
+`/age-stages/` links to catalogue filters via `?age=newborn`, `3-6`, `6-12` or `12-24`.
+Optional product `age_suitability` contains integer `min_months`, `max_months`, `source`,
+ISO `verified_at` and optional `notes`. A match must cover the entire chosen stage; missing
+verification is excluded. Demo products have no fabricated suitability. `/gift-finder/` combines
+these stages with strict maximum price, colour and category choices and shareable filter URLs.
+See `../docs/FEATURE-ROLLOUT.md` for remaining requested features.
+
+## Active editorial redesign — 28 October 2026
+
+The customer-facing storefront has been rebuilt around a clean, energetic baby-boutique direction
+based on the supplied visual reference rather than a conventional marketplace grid. The visual system
+uses a white navigation bar, sunny yellow product hero, cloud-shaped transitions, pastel promotion
+panels, circular category browsing, trust highlights and a pink family/footer area. Subtle hover,
+press, reveal, loading and colour-change effects include reduced-motion fallbacks. The homepage now
+introduces the brand before discovery, while search, strict filters, colour previews, Mannpasand,
+reviews, bargaining demo, analytics consent and external marketplace handoff retain their existing
+behavior.
+
+The active reference-led layer is `src/styles/boutique.css`, loaded last by `src/layouts/Layout.astro`,
+with micro-interactions in `src/scripts/boutique.ts`.
+Homepage composition is in `src/pages/index.astro`; collection and card structure live in
+`src/components/Catalogue.astro` and `src/components/ProductCard.astro`. The Stage and Wardrobe
+experiments remain available from the footer but no longer compete with core shopping paths in the
+primary navigation. The older powder-sky/doodle baseline below is retained as implementation history,
+not the active visual direction.
+
 ## Architecture continuation — 20 September 2026
 
 Related-product discovery, explicit session preferences, recommendation measurement, private experiment/trend/inventory reports, full recovery preparation and separate production entry points are now implemented. See [architecture progress](../docs/ARCHITECTURE-PROGRESS.md) for remaining evidence-dependent work. Run `pnpm run db:local` to apply additive migration `0003_discovery_operations.sql` before testing these flows.
@@ -90,9 +126,9 @@ Working source location: `C:\Users\Abhinav\Ventures\Baby Product Venture\website
 
 This README is the starting point for understanding and maintaining the project. Update it whenever a feature, configuration, or workflow changes. `AGENTS.md` records these maintenance rules for future coding sessions.
 
-## Current design baseline — 19 September 2026
+## Historical design baseline — 19 September 2026
 
-The user’s current edits are the accepted baseline: `powder-sky` theme, a blue baby-doodle background, catalogue/search immediately below the header with the former homepage hero removed, and a revised 2.88-second branded entrance with floating doodles and small splash droplets. Preserve these choices when extending the site. See [the current design record](../docs/CURRENT-DESIGN-BASELINE.md) for implementation files and verification caveats. Older visual-update sections below describe earlier iterations and do not override this baseline.
+This was the accepted baseline before the 28 October editorial redesign above: `powder-sky` theme, a blue baby-doodle background, catalogue/search immediately below the header, and a revised branded entrance. See [the historical design record](../docs/CURRENT-DESIGN-BASELINE.md) for implementation files and verification caveats. It no longer overrides the active redesign.
 
 ## Current state
 
@@ -120,7 +156,9 @@ The product popup places a compact **Make an offer / मोलभाव कर�
 
 The demo API is persistent in local D1. It binds sessions to a short-lived opaque HttpOnly browser cookie, reuses the product-wide allowance for 24 hours, consumes at most three distinct unambiguous price offers, caps conversation messages, and treats retries idempotently. A deterministic policy layer generates floor-safe Hindi responses; the private floor is never returned. Consent-gated analytics record lifecycle events without storing offer amounts. Owner-authenticated `GET /internal/api/bargain` returns configuration, recent sessions and aggregate demo outcomes.
 
-Run `pnpm run db:local` to apply bargaining migrations `0004` through `0007`. Checked-in demo campaigns cover the seven preview products and three marketplace choices but are marked `discount_kind=demo`, have no verified promotion and issue no coupon. Visitors choose Hindi, Hinglish or English before starting; the choice persists with the 30-minute browser-scoped session. Local `wrangler.jsonc` enables `BARGAIN_MODE=demo`; generated production configuration forcibly sets `BARGAIN_MODE=disabled` and `BARGAIN_PUBLIC_ENABLED=false`.
+Run `pnpm run db:local` to apply bargaining migrations `0004` through `0008`. Checked-in demo campaigns cover the seven preview products and three marketplace choices but are marked `discount_kind=demo`, have no verified promotion and issue no coupon. Visitors choose Hindi, Hinglish or English before starting; the choice persists with the 30-minute browser-scoped session. Sanitized history resumes without retaining customer text, bounded requests safely retry with the same idempotency key, and scheduled maintenance purges demo sessions after the provisional `BARGAIN_RETENTION_DAYS` window (30 days locally). Local `wrangler.jsonc` enables `BARGAIN_MODE=demo`; generated production configuration forcibly sets `BARGAIN_MODE=disabled` and `BARGAIN_PUBLIC_ENABLED=false`.
+
+The authenticated owner dashboard links to `/internal/bargain`, a read-only operations view of configuration, campaigns, policies, aggregate demo outcomes and recent sessions. It exposes no browser scope hash or customer message text and cannot enable a campaign or issue a coupon.
 
 Marketplace campaigns, seller validation, encrypted coupon operations, a commercially permitted production AI provider, final pricing inputs and end-to-end checkout evidence remain required for a real offer. Do not remove the demo disclosure or production gate until those dependencies are satisfied.
 
@@ -153,6 +191,7 @@ For fast visual editing, use `pnpm run dev` and open the address it prints. That
 | `node tests/integration.mjs`            | Live API checks; needs local preview and `.dev.vars`                       |
 | `pnpm exec playwright install chromium` | Install the browser used by UI checks                                      |
 | `node tests/browser.mjs`                | Desktop/mobile interaction checks; needs local preview                     |
+| `node tests/bargain-browser.mjs`        | Bargain start/counter/resume checks; needs migrated local preview           |
 | `pnpm run embeddings`                   | Generate changed product embeddings using your Cloudflare account          |
 | `pnpm run release:check`                | Reject unsafe/incomplete production content                                |
 | `pnpm run deploy`                       | Run release checks/build and publish to your configured Cloudflare account |

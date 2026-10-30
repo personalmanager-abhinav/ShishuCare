@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import catalogue from '../generated/catalogue.json';
+---
+<Layout title="Compare products — Shishu care">
+  <section class="prose">
+    <h1>Compare your little favourites.</h1>
+    <p>Choose up to three products. Unknown information stays unknown; listed demo prices are not checkout quotes.</p>
+    <form id="comparison-form">
+      {[1,2,3].map((slot)=><label>Product {slot}<select name={`product${slot}`}><option value="">Choose a product</option>{catalogue.products.map((product)=><option value={product.product_id}>{product.name}</option>)}</select></label>)}
+      <button class="button" type="submit">Compare</button>
+    </form>
+    <p role="status" id="comparison-status"></p>
+    <div class="comparison-scroll" tabindex="0" role="region" aria-label="Product comparison"><table id="comparison-table"></table></div>
+    <p>Share this comparison by copying the browser address.</p>
+  </section>
+</Layout>
+<script>
+  import catalogue from '../generated/catalogue.json';
+  import { price, money, type Product } from '../lib/product';
+  const form = document.querySelector<HTMLFormElement>('#comparison-form')!;
+  const table = document.querySelector<HTMLTableElement>('#comparison-table')!;
+  const params = new URLSearchParams(location.search);
+  const initial = (params.get('products') || '').split(',').slice(0,3);
+  [...form.querySelectorAll('select')].forEach((select,index)=>select.value=initial[index] || '');
+  function render() {
+    const ids = [...new Set([...new FormData(form).values()].map(String).filter(Boolean))];
+    const products = (catalogue.products as Product[]).filter((product)=>ids.includes(product.product_id));
+    history.replaceState(null,'',`${location.pathname}${products.length ? '?products='+products.map(p=>p.product_id).join(',') : ''}`);
+    table.replaceChildren();
+    document.querySelector('#comparison-status')!.textContent=products.length < 2 ? 'Choose two or three distinct products to compare.' : `Comparing ${products.length} products.`;
+    if (products.length < 2) return;
+    const head = table.createTHead().insertRow();
+    const corner = document.createElement('th');corner.textContent='Details';head.append(corner);
+    products.forEach((product)=>{const th=document.createElement('th');th.scope='col';const a=document.createElement('a');a.href=`/products/${product.slug}/`;a.textContent=product.name;th.append(a);head.append(th);});
+    const body=table.createTBody();
+    const rows: [string,(product:Product)=>string][] = [
+      ['Listed price',p=>money(price(p))],
+      ['Verified age',p=>p.age_suitability ? `${p.age_suitability.min_months}–${p.age_suitability.max_months} months` : 'Not verified'],
+      ['Material',p=>p.attributes.material?.join(', ') || 'Not supplied'],
+      ['Size',p=>p.attributes.size?.join(', ') || 'Not supplied'],
+      ['Colours',p=>p.attributes.color?.join(', ') || 'Not supplied'],
+      ['Marketplace availability',p=>p.offers.some(o=>o.url && o.availability==='available') ? 'See verified listing details' : 'Not confirmed'],
+      ['Parent note',p=>p.parent_note?.excerpt || 'No published note'],
+    ];
+    for (const [label,value] of rows){const row=body.insertRow();const th=document.createElement('th');th.scope='row';th.textContent=label;row.append(th);products.forEach(p=>{row.insertCell().textContent=value(p);});}
+  }
+  form.addEventListener('submit',event=>{event.preventDefault();render();});render();
+</script>
+<style>#comparison-form{display:flex;flex-wrap:wrap;gap:16px}label{display:grid;gap:6px}select{padding:12px;border:1px solid #d8ced3;border-radius:10px}.comparison-scroll{overflow:auto}table{border-collapse:collapse;width:100%;margin:24px 0} :global(#comparison-table th),:global(#comparison-table td){padding:15px;min-width:150px;text-align:left;border:1px solid #eee}</style>

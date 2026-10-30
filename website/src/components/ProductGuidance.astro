@@ -1,0 +1,26 @@
+---
+import type { Product } from '../lib/product';
+const { product } = Astro.props as { product: Product };
+const guidance = product.product_guidance;
+---
+<section class="product-guidance" aria-label="Verified product information">
+  <h2>Know your little essential</h2>
+  <details><summary>Age, size & fit</summary>
+    {product.age_suitability ? <p>Verified range: {product.age_suitability.min_months}–{product.age_suitability.max_months} months. {product.age_suitability.notes}</p> : <p>Age suitability has not been verified.</p>}
+    <p>Age alone does not determine fit. Compare measurements with the manufacturer's chart before purchasing.</p>
+    {guidance?.sizes?.length ? <table><thead><tr><th>Size</th><th>Measurement</th><th>Range (cm)</th></tr></thead><tbody>{guidance.sizes.map(size=><tr><td>{size.label}</td><td>{size.measurement}</td><td>{size.min_cm}–{size.max_cm}</td></tr>)}</tbody></table> : <p>Verified measurements are not yet supplied.</p>}
+  </details>
+  <details><summary>Materials & care</summary>
+    <p>Composition: {guidance?.composition || 'Not supplied'}</p>
+    <p>Country of origin: {guidance?.origin || 'Not supplied'}</p>
+    {guidance?.care?.length ? <ul>{guidance.care.map(item=><li>{item}</li>)}</ul> : <p>Follow the manufacturer's label. Product-specific washing and drying instructions have not been verified.</p>}
+  </details>
+  <details><summary>Safety & certifications</summary>
+    {guidance?.safety?.length ? <ul>{guidance.safety.map(item=><li>{item}</li>)}</ul> : <p>Product-specific safety instructions are not yet verified. Do not interpret missing warnings as evidence that a product is suitable for a particular use.</p>}
+    {guidance?.certifications?.length ? <ul>{guidance.certifications.map(item=><li>{item.name} — {item.reference}</li>)}</ul> : <p>No certification claims have been verified.</p>}
+  </details>
+  {guidance && <small>Source: {guidance.source} · Reviewed {guidance.verified_at.slice(0,10)}</small>}
+  <h3>Marketplace information freshness</h3>
+  <ul>{product.offers.map(offer=><li>{offer.marketplace_id}: {offer.last_verified_at ? `Last checked ${offer.last_verified_at.slice(0,10)}` : 'Listing, price and availability not verified'}</li>)}</ul>
+</section>
+<style>.product-guidance{margin:30px 0;border-top:1px solid #eee;padding-top:20px}.product-guidance h2{font-size:21px}.product-guidance h3{font-size:15px}details{padding:15px 0;border-bottom:1px solid #eee}summary{cursor:pointer;font-weight:600}p,li,small{font-size:12px;line-height:1.8}table{width:100%;font-size:12px}td,th{text-align:left;padding:8px}</style>

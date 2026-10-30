@@ -111,6 +111,8 @@ test('Demo API persists a browser-owned session and makes retries idempotent', a
     const session = await start(env);
     assert.equal(session.response.status, 201);
     assert.equal(session.body.attemptsRemaining, 3);
+    assert.equal(session.body.history.length, 1);
+    assert.equal(session.body.history[0].speaker, 'assistant');
     assert.equal(
       (
         await handleBargain(
@@ -137,7 +139,34 @@ test('Demo API persists a browser-owned session and makes retries idempotent', a
     assert.equal(first.attemptsUsed, 1);
     assert.equal(retry.attemptsUsed, 1);
     assert.equal(first.offer.amountMinor, retry.offer.amountMinor);
-    assert.equal(db.prepare('SELECT COUNT(*) count FROM bargain_turn').get()!.count, 2);
+    assert.equal(first.history.length, 3);
+    assert.equal(first.history[1].message, null, 'Customer message text is never returned');
+    assert.equal(first.history[1].amountMinor, 5000);
+    assert.equal(db.prepare('SELECT COUNT(*) count FROM bargain_turn').get()!.count, 3);
+
+    const resumedResponse = await handleBargain(
+      post(
+        '/api/bargain/sessions',
+        {
+          productId: 'P101',
+          variantId: 'pink',
+          marketplaceId: 'flipkart',
+          marketplaceOfferId: 'P101-flipkart',
+          language: 'en',
+          idempotencyKey: crypto.randomUUID(),
+        },
+        session.cookie,
+      ),
+      env,
+    );
+    const resumed = (await resumedResponse.json()) as any;
+    assert.equal(resumed.resumed, true);
+    assert.equal(
+      resumed.marketplaceId,
+      'amazon',
+      'Product-wide attempts resume their original table',
+    );
+    assert.equal(resumed.attemptsRemaining, 2);
     const deletion = await handleBargain(
       new Request('https://shop.example/api/bargain/history', {
         method: 'DELETE',

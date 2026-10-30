@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProductCard from '../components/ProductCard.astro';
+import catalogue from '../generated/catalogue.json';
+import { ageStages } from '../lib/age-stage';
+import type { Product } from '../lib/product';
+---
+<Layout title="Gift finder — Shishu care">
+  <section class="prose">
+    <h1>A thoughtful little gift.</h1>
+    <p>Build a shortlist by age, budget and colour. No account or personal information needed. Current products and prices are previews.</p>
+    <form id="gift-finder" class="gift-form">
+      <label>Age stage<select name="age"><option value="">Any · confirm suitability</option>{ageStages.map((stage)=><option value={stage.id}>{stage.label}</option>)}</select></label>
+      <label>Maximum listed price (₹)<input name="budget" type="number" min="1" max="100000" step="1" /></label>
+      <label>Preferred colour<select name="colour"><option value="">Any colour</option><option>pink</option><option>blue</option><option>cream</option></select></label>
+      <label>Gift purpose<select name="category"><option value="">Everyday essentials</option><option value="clothing">Getting dressed</option><option value="home">Wraps and mats</option><option value="accessories">Little finishing touches</option></select></label>
+      <button class="button" type="submit">Find gifts</button>
+      <button class="button secondary" type="button" id="gift-share">Copy shortlist link</button>
+    </form>
+    <p id="gift-status" role="status"></p>
+  </section>
+  <section class="catalogue" aria-label="Gift suggestions"><div class="product-grid" id="gift-results">{catalogue.products.map((product)=><ProductCard product={product as Product}/>)}</div></section>
+</Layout>
+<script>
+  import catalogue from '../generated/catalogue.json';
+  import { matchesAgeStage } from '../lib/age-stage';
+  import { price, type Product } from '../lib/product';
+  const form = document.querySelector<HTMLFormElement>('#gift-finder')!;
+  const status = document.querySelector<HTMLElement>('#gift-status')!;
+  const params = new URLSearchParams(location.search);
+  for (const name of ['age','budget','colour','category']) {
+    const field = form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement;
+    field.value = params.get(name) || '';
+  }
+  function render() {
+    const values = new FormData(form);
+    const budget = String(values.get('budget') || '');
+    const query = new URLSearchParams();
+    for (const [key,value] of values) if (String(value)) query.set(key,String(value));
+    history.replaceState(null,'',`${location.pathname}${query.size ? '?'+query : ''}`);
+    let count = 0;
+    for (const product of catalogue.products as Product[]) {
+      const amount = price(product);
+      const visible = matchesAgeStage(product,String(values.get('age') || '')) &&
+        (!budget || (amount !== null && amount <= Number(budget)*100)) &&
+        (!values.get('colour') || product.attributes.color?.includes(String(values.get('colour')))) &&
+        (!values.get('category') || product.category_id === values.get('category'));
+      document.querySelector<HTMLElement>(`#gift-results [data-product="${product.product_id}"]`)!.hidden = !visible;
+      if (visible) count++;
+    }
+    status.textContent = count ? `${count} gift ideas match your choices. Confirm final prices and suitability on the marketplace.` : 'No verified matches. Products with unconfirmed ages or unknown prices cannot satisfy those filters.';
+  }
+  form.addEventListener('submit',(event)=>{event.preventDefault();render();});
+  document.querySelector('#gift-share')!.addEventListener('click',async()=>{
+    if (!form.reportValidity()) return;
+    render();
+    try { await navigator.clipboard.writeText(location.href); status.textContent='Shortlist link copied. It contains only your selected filters.'; }
+    catch { status.textContent='Copy the address from your browser to share this shortlist.'; }
+  });
+  render();
+</script>
+<style>.gift-form{display:grid;grid-template-columns:1fr 1fr;gap:20px}.gift-form label{display:grid;gap:8px}.gift-form input,.gift-form select{padding:12px;border:1px solid #d9ced3;border-radius:10px;max-width:100%}@media(max-width:600px){.gift-form{grid-template-columns:1fr}}</style>

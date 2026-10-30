@@ -3,6 +3,7 @@ import ProductCard from './ProductCard.astro';
 import catalogue from '../generated/catalogue.json';
 import taxonomy from '../../data/taxonomy.json';
 import type { Product } from '../lib/product';
+import { ageStages } from '../lib/age-stage';
 const { initialCategory = '' } = Astro.props;
 ---
 
@@ -12,6 +13,22 @@ const { initialCategory = '' } = Astro.props;
   aria-label="Product collection"
   data-category-id={initialCategory}
 >
+  <div class="collection-heading">
+    <div>
+      <p class="showcase-kicker">
+        <span></span> The everyday edit
+      </p>
+      <h2>
+        Small things.
+        <br />
+        <em>Big comfort.</em>
+      </h2>
+    </div>
+    <p>
+      Seven easy essentials, selected for the tiny moments that fill a day. Search naturally or take
+      your time and browse.
+    </p>
+  </div>
   <div class="search-band">
     <form id="search-form" role="search">
       <label for="query" class="sr-only">
@@ -25,18 +42,23 @@ const { initialCategory = '' } = Astro.props;
         name="q"
         type="search"
         maxlength="200"
-        placeholder="Try “pink baby caps”"
+        placeholder="What are you looking for? Try “pink baby caps”"
         autocomplete="off"
       />
       <button type="submit" class="button">
-        Explore finds <span aria-hidden="true">↗</span>
+        Find it <span aria-hidden="true">↗</span>
       </button>
       <p id="search-mode">Search by product, colour, material, or budget.</p>
     </form>
   </div>
-  <div class="collection-toolbar" id="results-refinement" hidden={!initialCategory}>
-    <p class="refinement-label">Refine your finds</p>
+  <div class="collection-toolbar" id="results-refinement">
+    <p class="refinement-label">Shape your edit</p>
     <div class="sort-controls">
+      <label for="age-stage" class="sr-only">Age stage</label>
+      <select id="age-stage">
+        <option value="">All ages · verify suitability</option>
+        {ageStages.map((stage) => <option value={stage.id}>{stage.label}</option>)}
+      </select>
       <label for="category-filter" class="sr-only">
         Category
       </label>
@@ -94,7 +116,7 @@ const { initialCategory = '' } = Astro.props;
   <div id="empty" class="empty" hidden>
     <p class="eyebrow">A LITTLE TOO SPECIFIC?</p>
     <h2>No finds this time.</h2>
-    <p>Try another word or a wider budget. Your price limit always comes first.</p>
+    <p>Try another word or a wider budget. Age filters include only products with verified suitability covering that whole stage. Unverified products are excluded.</p>
     <button class="button secondary" id="reset-search">
       Explore all products
     </button>

@@ -7,7 +7,7 @@ import '../styles/controls.css';
 import '../styles/community.css';
 import '../styles/brand-entrance.css';
 import '../styles/recommendations.css';
-import '../styles/doodle.css';
+import '../styles/boutique.css';
 import site from '../../data/site.json';
 import taxonomy from '../../data/taxonomy.json';
 import ProductDialog from '../components/ProductDialog.astro';
@@ -27,44 +27,18 @@ const { title = site.name, description = site.description } = Astro.props;
     <link rel="canonical" href={new URL(Astro.url.pathname, site.url)} />
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="/fonts/poppins.css" />
-    <script is:inline>
-      (() => {
-        try {
-          const key = 'shishu-brand-entry-v1';
-          const visited = sessionStorage.getItem(key);
-          sessionStorage.setItem(key, 'seen');
-          const internal =
-            document.referrer && new URL(document.referrer).origin === location.origin;
-          const navigation = performance.getEntriesByType('navigation')[0];
-          if (
-            location.pathname !== '/' ||
-            visited ||
-            internal ||
-            navigation?.type === 'back_forward' ||
-            matchMedia('(prefers-reduced-motion: reduce)').matches
-          )
-            return;
-          document.documentElement.dataset.brandIntro = 'pending';
-          setTimeout(() => {
-            document.documentElement.removeAttribute('data-brand-intro');
-            document.dispatchEvent(new Event('brand:intro-abort'));
-          }, 4000);
-        } catch {
-          /* Storage unavailable: show the homepage immediately. */
-        }
-      })();
-    </script>
     {site.demo && <meta name="robots" content="noindex,nofollow" />}
   </head>
   <body>
+    {import.meta.env.PUBLIC_STATIC_PREVIEW === 'true' && <aside style="padding:10px 20px;text-align:center;background:#fff1c9;color:#513e18;font-size:12px">Storefront preview · Sample products and prices. Bargaining, reviews and owner services require the Cloudflare backend.</aside>}
     <a href="#main" class="skip">
       Skip to content
     </a>
     <div class="promotion-bar" aria-label="Special offer">
-      <span>A little love for you</span>
-      <strong>{site.promotion.percent}% off</strong>
+      <span>Free, gentle discovery for every parent</span>
       <span>
-        with code <b class="coupon-code">{site.promotion.code}</b>
+        <strong>{site.promotion.percent}% off</strong> with{' '}
+        <b class="coupon-code">{site.promotion.code}</b>
       </span>
     </div>
     <header class="site-header">
@@ -75,18 +49,12 @@ const { title = site.name, description = site.description } = Astro.props;
         <BrandName />
       </a>
       <nav aria-label="Main navigation">
-        <a href="/stage/" aria-current={Astro.url.pathname === '/stage/' ? 'page' : undefined}>
-          Stage view
-        </a>
-        <a
-          href="/wardrobe/"
-          aria-current={Astro.url.pathname === '/wardrobe/' ? 'page' : undefined}
-        >
-          Wardrobe view
-        </a>
         <a href="/#collection" aria-current={Astro.url.pathname === '/' ? 'page' : undefined}>
-          Explore all
+          Home
         </a>
+        <a href="/#collection">Shop</a>
+        <a href="/age-stages/">By age</a>
+        <a href="/gift-finder/">Gifts</a>
         {taxonomy.map((category) => (
           <a
             href={`/categories/${category.id}/`}
@@ -95,6 +63,9 @@ const { title = site.name, description = site.description } = Astro.props;
             {category.name}
           </a>
         ))}
+        <a href="/about/" aria-current={Astro.url.pathname === '/about/' ? 'page' : undefined}>
+          About
+        </a>
       </nav>
       <div class="header-actions">
         <a class="mannpasand-link" href="/mannpasand/">
@@ -109,12 +80,21 @@ const { title = site.name, description = site.description } = Astro.props;
     <ProductDialog />
     <footer class="ambient-section">
       <AmbientParticles variant="footer" />
-      <a class="wordmark" href="/">
-        {site.name}
-      </a>
-      <p>A little discovery. An everyday favourite.</p>
-      <div>
+      <div class="footer-brand">
+        <a class="wordmark" href="/">
+          {site.name}
+        </a>
+        <p>Soft essentials for bright little days.</p>
+      </div>
+      <div class="footer-note">
+        <span>Made for mindful discovery</span>
+        <strong>Ek maa ki pahli pasand.</strong>
+      </div>
+      <div class="footer-links">
+        <a href="/compare/">Compare products</a>
         <a href="/about/">How to buy</a>
+        <a href="/stage/">Stage view</a>
+        <a href="/wardrobe/">Wardrobe view</a>
         <a href="/privacy/">Privacy</a>
         <button class="text-button" id="privacy-settings">
           Cookie preferences
@@ -148,8 +128,8 @@ const { title = site.name, description = site.description } = Astro.props;
       import '../scripts/controls';
       import '../scripts/mannpasand';
       import '../scripts/reviews';
-      import '../scripts/brand-entrance';
       import '../scripts/recommendations';
+      import '../scripts/boutique';
     </script>
   </body>
 </html>

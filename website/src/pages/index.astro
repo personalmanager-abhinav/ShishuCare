@@ -4,20 +4,233 @@ import Catalogue from '../components/Catalogue.astro';
 ---
 
 <Layout>
-  <Catalogue />
-  <section class="buy-strip">
-    <span class="eyebrow">ONE PRODUCT. YOUR CHOICE.</span>
-    <h2>
-      Find it here.
-      <br />
-      Make it yours, over there.
-    </h2>
+  <section class="boutique-hero" aria-labelledby="home-title">
+    <div class="hero-sparkles" aria-hidden="true">
+      <span>★</span>
+      <span>♡</span>
+      <span>✦</span>
+      <span>~</span>
+    </div>
+    <div class="boutique-hero-copy" data-reveal>
+      <p class="hero-small">A softer place to discover</p>
+      <h1 id="home-title">
+        Best for babies.
+        <br />
+        <em>Lovely for you.</em>
+      </h1>
+      <p>Thoughtful little essentials for your baby's happy, cosy everyday world.</p>
+      <a class="button hero-shop" href="#collection">
+        Shop now <span aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div
+      class="boutique-hero-art"
+      data-hero-art
+      aria-label="A selection of soft Shishu care baby essentials"
+    >
+      <span class="hero-cloud cloud-one" aria-hidden="true"></span>
+      <span class="hero-cloud cloud-two" aria-hidden="true"></span>
+      <span class="hello-bubble" aria-hidden="true">
+        Hello!
+      </span>
+      <img
+        class="hero-item hero-item-caps"
+        src="/images/wardrobe-v2/caps.webp"
+        alt="Pink and blue knitted baby caps"
+        width="900"
+        height="600"
+        fetchpriority="high"
+      />
+      <img
+        class="hero-item hero-item-swaddle"
+        src="/images/wardrobe-v2/baby-swaddle.webp"
+        alt="Pink and blue baby swaddles"
+        width="900"
+        height="600"
+      />
+      <img
+        class="hero-item hero-item-bib"
+        src="/images/wardrobe-v2/baby-bibs.webp"
+        alt="Patterned baby bibs"
+        width="900"
+        height="600"
+      />
+      <span class="hero-star star-one" aria-hidden="true">
+        ★
+      </span>
+      <span class="hero-star star-two" aria-hidden="true">
+        ★
+      </span>
+      <span class="hero-heart" aria-hidden="true">
+        ♥
+      </span>
+    </div>
+    <div class="cloud-edge" aria-hidden="true"></div>
+  </section>
+
+  <section class="boutique-promises" aria-label="Why families choose Shishu care">
+    <article data-reveal>
+      <div class="promise-art promise-pink">
+        <img src="/images/wardrobe-v2/baby-shawl.webp" alt="" />
+      </div>
+      <h2>Exclusive collections</h2>
+      <p>Handpicked essentials for your baby's comfort and joy.</p>
+    </article>
+    <span class="promise-divider" aria-hidden="true">
+      ♡
+    </span>
+    <article data-reveal>
+      <div class="promise-art promise-blue">
+        <img src="/images/wardrobe-v2/caps.webp" alt="" />
+      </div>
+      <h2>Happiness, guaranteed</h2>
+      <p>Gentle colours and simple finds for bright little days.</p>
+    </article>
+    <span class="promise-divider" aria-hidden="true">
+      ♡
+    </span>
+    <article data-reveal>
+      <div class="promise-art promise-yellow">
+        <img src="/images/wardrobe-v2/socks.webp" alt="" />
+      </div>
+      <h2>Easy marketplace choice</h2>
+      <p>Discover here, then buy with the marketplace you trust.</p>
+    </article>
+  </section>
+
+  <section class="boutique-deals" aria-label="Collection highlights">
+    <article class="deal-card deal-pink" data-reveal>
+      <div>
+        <span>Little welcome</span>
+        <h2>
+          Newborn
+          <br />
+          essentials
+        </h2>
+        <a href="/#collection">
+          Shop now <b>→</b>
+        </a>
+      </div>
+      <img src="/images/wardrobe-v2/diaper-sets.webp" alt="Newborn clothing set" />
+    </article>
+    <article class="deal-card deal-lilac" data-reveal>
+      <div>
+        <span>Soft summer</span>
+        <h2>
+          Best picks
+          <br />
+          for baby
+        </h2>
+        <a href="/categories/clothing/">
+          Shop now <b>→</b>
+        </a>
+      </div>
+      <img src="/images/wardrobe-v2/baby-bibs.webp" alt="Soft patterned baby bibs" />
+    </article>
+  </section>
+
+  <section class="shop-categories" aria-labelledby="category-title" data-reveal>
+    <div class="boutique-section-title">
+      <h2 id="category-title">Shop by category</h2>
+      <span>
+        <i></i>♥<i></i>
+      </span>
+    </div>
+    <div class="category-bubbles">
+      <a href="/categories/accessories/">
+        <span>
+          <img src="/images/wardrobe-v2/caps.webp" alt="" />
+        </span>
+        <b>Caps</b>
+        <small>Cosy little layers</small>
+      </a>
+      <a href="/categories/clothing/">
+        <span>
+          <img src="/images/wardrobe-v2/diaper-sets.webp" alt="" />
+        </span>
+        <b>Baby wear</b>
+        <small>Everyday comfort</small>
+      </a>
+      <a href="/categories/accessories/">
+        <span>
+          <img src="/images/wardrobe-v2/socks.webp" alt="" />
+        </span>
+        <b>Essentials</b>
+        <small>Tiny finishing touches</small>
+      </a>
+      <a href="/categories/home/">
+        <span>
+          <img src="/images/wardrobe-v2/baby-swaddle.webp" alt="" />
+        </span>
+        <b>Swaddles</b>
+        <small>Soft, restful wraps</small>
+      </a>
+      <a href="/categories/accessories/">
+        <span>
+          <img src="/images/wardrobe-v2/baby-bibs.webp" alt="" />
+        </span>
+        <b>Bibs</b>
+        <small>Mealtime friends</small>
+      </a>
+      <a href="/categories/home/">
+        <span>
+          <img src="/images/wardrobe-v2/sleeping-mat.webp" alt="" />
+        </span>
+        <b>Sleep</b>
+        <small>Calm little corners</small>
+      </a>
+    </div>
+  </section>
+
+  <section class="service-ribbon" aria-label="Shopping benefits" data-reveal>
     <div>
+      <span>⇱</span>
       <p>
-        Take a closer look, then choose Meesho, Amazon, or Flipkart. Your order, payment, and
-        delivery stay with the marketplace you trust.
+        <b>Marketplace choice</b>
+        <small>Pick where you buy</small>
       </p>
-      <a href="/about/">How it works ↗</a>
+    </div>
+    <div>
+      <span>↻</span>
+      <p>
+        <b>Simple discovery</b>
+        <small>No account required</small>
+      </p>
+    </div>
+    <div>
+      <span>♢</span>
+      <p>
+        <b>Private by default</b>
+        <small>Analytics are optional</small>
+      </p>
+    </div>
+    <div>
+      <span>♡</span>
+      <p>
+        <b>Parent friendly</b>
+        <small>Designed with care</small>
+      </p>
+    </div>
+  </section>
+
+  <Catalogue />
+
+  <section class="family-section" data-reveal>
+    <div class="family-art">
+      <span class="family-cloud" aria-hidden="true"></span>
+      <img src="/images/wardrobe-v2/caps.webp" alt="Cosy baby caps from the collection" />
+      <span aria-hidden="true">★</span>
+      <span aria-hidden="true">♡</span>
+    </div>
+    <div class="family-copy">
+      <div class="mail-doodle" aria-hidden="true">
+        💌 〰 ♡
+      </div>
+      <h2>Join our baby family</h2>
+      <p>Keep your favourite finds close—no account or email subscription needed.</p>
+      <a class="button" href="/mannpasand/">
+        See Mannpasand <span>→</span>
+      </a>
     </div>
   </section>
 </Layout>
