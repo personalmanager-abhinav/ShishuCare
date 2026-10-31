@@ -1452,3 +1452,51 @@ body.is-waiting .search-band::after {
     display: none;
   }
 }
+
+/* Care-led hero: local photography, with an ivory reading surface. */
+.boutique-hero--care {
+  background: #faf6ef;
+  isolation: isolate;
+}
+.boutique-hero--care .hero-care-photo {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 70%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% 38%;
+  z-index: -2;
+}
+.boutique-hero--care::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #faf6ef 0%, #faf6ef 29%, rgba(250, 246, 239, .96) 37%, rgba(250, 246, 239, .68) 47%, rgba(250, 246, 239, .08) 65%, transparent 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+.boutique-hero--care .hero-sparkles {
+  display: none;
+}
+@media (max-width: 700px) {
+  .boutique-hero--care {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+  }
+  .boutique-hero--care .boutique-hero-copy {
+    align-self: stretch;
+    padding: 48px 7% 24px;
+  }
+  .boutique-hero--care .hero-care-photo {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: clamp(300px, 85vw, 440px);
+    object-position: 55% 35%;
+    z-index: 0;
+  }
+  .boutique-hero--care::before {
+    display: none;
+  }
+}

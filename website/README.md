@@ -577,3 +577,9 @@ Run `node tests/brand-entrance.mjs` for desktop/tablet/mobile alignment, timing 
 Preview troubleshooting: if HTML loads but hashed CSS assets return 404 after edits/builds, restart the local Wrangler preview and open a fresh preview URL. This can be a stale preview asset index rather than a CSS syntax error; preserve the source styling.
 
 Search layout: the submit button spans the input/help-text rows on desktop, centering it vertically in the full search band while retaining its right alignment. Mobile retains the stacked full-width button.
+
+### Care-led homepage photography
+
+The homepage hero uses a locally hosted mother-and-baby photograph instead of the solid yellow background and floating product collage. An ivory gradient keeps desktop copy readable; on narrow screens the photo sits beneath the copy so neither faces nor text compete. Responsive 800px/1600px WebP assets avoid third-party image requests. The rest of the theme and shopping flows are unchanged.
+
+Photo source: https://www.pexels.com/photo/3875225/ (image ID 3875225), downloaded from https://images.pexels.com/photos/3875225/pexels-photo-3875225.jpeg . Pexels license: https://www.pexels.com/license/ . Stock imagery illustrates parental care; it is not a customer testimonial or endorsement. Keep the source/license reference when replacing or reusing these assets.

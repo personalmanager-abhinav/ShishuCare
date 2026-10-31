@@ -4,7 +4,7 @@ import Catalogue from '../components/Catalogue.astro';
 ---
 
 <Layout>
-  <section class="boutique-hero" aria-labelledby="home-title">
+  <section class="boutique-hero boutique-hero--care" aria-labelledby="home-title">
     <div class="hero-sparkles" aria-hidden="true">
       <span>★</span>
       <span>♡</span>
@@ -23,48 +23,16 @@ import Catalogue from '../components/Catalogue.astro';
         Shop now <span aria-hidden="true">→</span>
       </a>
     </div>
-    <div
-      class="boutique-hero-art"
-      data-hero-art
-      aria-label="A selection of soft Shishu care baby essentials"
-    >
-      <span class="hero-cloud cloud-one" aria-hidden="true"></span>
-      <span class="hero-cloud cloud-two" aria-hidden="true"></span>
-      <span class="hello-bubble" aria-hidden="true">
-        Hello!
-      </span>
-      <img
-        class="hero-item hero-item-caps"
-        src="/images/wardrobe-v2/caps.webp"
-        alt="Pink and blue knitted baby caps"
-        width="900"
-        height="600"
-        fetchpriority="high"
-      />
-      <img
-        class="hero-item hero-item-swaddle"
-        src="/images/wardrobe-v2/baby-swaddle.webp"
-        alt="Pink and blue baby swaddles"
-        width="900"
-        height="600"
-      />
-      <img
-        class="hero-item hero-item-bib"
-        src="/images/wardrobe-v2/baby-bibs.webp"
-        alt="Patterned baby bibs"
-        width="900"
-        height="600"
-      />
-      <span class="hero-star star-one" aria-hidden="true">
-        ★
-      </span>
-      <span class="hero-star star-two" aria-hidden="true">
-        ★
-      </span>
-      <span class="hero-heart" aria-hidden="true">
-        ♥
-      </span>
-    </div>
+    <img
+      class="hero-care-photo"
+      src="/images/mother-and-baby.webp"
+      srcset="/images/mother-and-baby-800.webp 800w, /images/mother-and-baby.webp 1600w"
+      sizes="(max-width: 700px) 100vw, 70vw"
+      alt="A mother holding her baby close and giving a gentle kiss"
+      width="1600"
+      height="1067"
+      fetchpriority="high"
+    />
     <div class="cloud-edge" aria-hidden="true"></div>
   </section>
 
